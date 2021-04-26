@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<!-- 必须引入-->
+		<script type="text/javascript" src="js/angular-sanitize.min.js"></script>
+		<!--<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
+	</head>
+	<body>			<!--ng-bin-html 方法插入变量的内容 字符串-->	
+			<p ng-bind-html="txt"></p>
+			<!--ng-include 方法插入外部的页面 文件..三种方法-->
+			<p ng-include="'被插入的内容.html'"></p>
+			<p ng-include src="'被插入的内容.html'"></p>
+			<p ng-include="index"></p>
+			
+	</body>
+	<script type="text/javascript">
+								//必须调用angular的这个插件
+		angular.module("myApp",["ngSanitize"])
+		.controller("main",["$scope",function($scope){
+			$scope.txt = "<h1>ng-bind-html 的方法</h1>";
+			$scope.index = "被插入的内容.html"
+		}])
+	</script>
+</html>

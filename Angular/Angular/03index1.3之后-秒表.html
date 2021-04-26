@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="angular.min.js"></script>
+	</head>
+	<body>
+		<div >
+			当前时间是:<span ng-bind="mydata"></span>
+		</div>
+		
+		
+		<script type="text/javascript">
+		
+			angular.module("myapp",[])
+			.controller("main",function($scope){
+				
+					$scope.mydata = new Date();
+					
+					setInterval(function(){
+						
+						$scope.$apply(function(){
+							
+						$scope.mydata = new Date();
+					});
+				},1000);
+					
+			})
+		</script>
+	</body>
+</html>

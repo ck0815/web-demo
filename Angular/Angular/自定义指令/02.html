@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--E 节点-->
+		<my-directive></my-directive>
+		<!--c 类名-->
+		<div class="my-directive"></div>
+		<!--m 节点-->
+		<div my-directive></div>
+		<!--a注释-->
+		<!--directive:my-directive-->
+	</body>
+	<script type="text/javascript" src="../js/angular.js"></script>
+	
+	<script type="text/javascript">
+		//联式结构
+		angular.module("myapp",[])
+		.directive("myDirective",function(){
+			return {
+				"restrict" : "ECMA",//渲染指令方式
+//				"template" : "<div>我是一个帅哥</div>",//显示在页面的模板内容
+				"templateUrl" : "a.html",//
+				"replace" : true //表示替换
+			}
+		})
+		.controller("main",["$scope",function($scope){
+			
+		}])
+	</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="mainCtrl">
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="angular.js"></script>
+		<script type="text/javascript" src="angular-ui-router.min.js"></script>
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		
+		<a ui-sref="report">查看视图</a>
+		
+		<a ui-sref="about">关于</a>
+		
+		<div ui-view>
+			
+		</div>
+		<div ui-view="filters">
+			
+		</div>
+		<div ui-view="tabData">
+			
+		</div>
+		<div ui-view="graph">
+			
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		var app = angular.module("myApp",["ui.router"])
+		.controller("mainCtrl",["$scope","$state",function($scope,$state){
+			
+		}])
+		.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
+			$stateProvider
+			.state({
+				name:"about",
+				url:"/about",
+				template:"<h3>关于我们</h3>"
+			})
+			.state({
+				name:"report",
+				url:"/report",
+				views:{
+					"filters":{
+						templateUrl:"tpl/filter.html"
+					},
+					"tabData":{
+						templateUrl:"tpl/tabData.html"
+					},
+					"graph":{
+						templateUrl:"tpl/graph.html"
+					},
+				}
+			})
+		}])
+		
+	</script>
+</html>

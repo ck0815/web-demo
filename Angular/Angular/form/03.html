@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app = "myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<style type="text/css">
+			form{
+				margin-top: 50px;
+			}
+			input{
+				margin-bottom: 10px;
+			}
+		</style>
+		<script type="text/javascript" src="../js/angular.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<form class="form-group" name="myform">
+				<input type="text" class="form-control" placeholder="请输入" name="username"
+					 ng-model="username" ng-required="true" 
+					 ng-minlength="3" ng-maxlength="16"
+					 ng-pattern="/^[a-zA-z]+[1-9]+/"/>
+				<!--ng-required  为必填项 true代表不能为空确认是必须填写的 没有填写值为false -->
+				<div ng-show="myform.username.$error.required">
+					<p class="bg-danger">用户名不能为空</p>
+				</div>
+				<!--ng-minlength  为最小长度  值为数字 -->
+				<div ng-show="myform.username.$error.minlength">
+					<p class="bg-danger">用户名不能小于3位</p>
+				</div>
+				<!--ng-maxlength  为最大长度  值为数字 -->
+				<div ng-show="myform.username.$error.maxlength">
+					<p class="bg-danger">用户名不能大于16位</p>
+				</div>
+				<!--ng-pattern 匹配正则表达式 -->
+				<div ng-show="myform.username.$error.pattern">
+					<p class="bg-danger">用户名必须以字母开头</p>
+				</div>
+				
+				<input type="submit" value="提交" class="btn btn-info form-control" />
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module("myapp",[])
+		.controller("main",["$scope",function($scope){
+
+		}])
+		
+	</script>
+</html>

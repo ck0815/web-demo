@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app = "myApp" ng-controller = "main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript"src="../js/angular.js"></script>
+		<script type="text/javascript"></script>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		//显示注入 定义服务	通过angular的第三个参数回调函数 依赖注入$provide--$provide为服务的提供者
+		//也可以使用 隐式注入 方法
+		angular.module("myApp",[])
+		//在外面定义服务
+		.provider("myservice",function(){
+			this.$get = function(){
+					//返回一个对象
+					return {
+						"id" : 1,
+						"name" : "ckk",
+						"age" : 18
+					}
+			}
+		})
+		//通过 隐式注入 来依赖注入 服务名 在给服务添加数据     //也可以使用 隐式注入 方法
+		.controller("main",["$scope","myservice",function($scope,myservice){
+			console.log(myservice)
+			myservice.sex = "男";
+			console.log(myservice)
+		}])
+	</script>
+</html>

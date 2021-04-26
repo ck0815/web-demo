@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="js/require2.1.11.min.js"></script>
+	</head>
+	<body>
+		<h1>Hello,require</h1>
+	</body>
+	<script type="text/javascript">
+			/**
+			 * require API 它有三个参数
+			 * 第一个参数：数组，表示需求（需要的）JS，模块
+			 * 第二个参数：callback，回调函数，表示加载成功的回调
+			 * 第三个参数：callback，表示加载失败是的回调
+			 */
+			require(["js/test1","js/test2"],function() {
+				/**
+				 * 只有全部成功，才能回调
+				 */
+				alert("加载成功！");
+			},function() {
+				/**
+				 * 只要其中有一个加载失败，那么失败的回调就会触发
+				 */
+				alert("加载失败~~");
+			});
+			
+	</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app = "myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../js/angular.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<!--第一种-->
+			<!--<select ng-model="myadd">
+				<option>请选择地区</option>
+				<option ng-repeat="item in dizhi" ng-model="item">{{item}}</option>
+			</select>-->
+			
+			<!--第二种-->
+			<!--<select ng-model="myadd" ng-options="item.name for item in dizhi">
+				<option>请选择地区</option>
+			</select>-->
+			
+			<!--第三种-->
+			<!--<select ng-model="cls" ng-options="item.name as item.name for item in dizhi" >
+				<option>请选择你的家庭地址</option>
+			</select>-->
+			
+			<!--第四种-->
+			<select ng-model="cls" ng-options="item.id as item.name group by item.grade for item in dizhi">
+				<option value="">请选择地区</option>
+			</select>
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module("myapp",[])
+		.controller("main",["$scope",function($scope){
+//			$scope.dizhi = ["河南","海南","上海","新加坡"]
+
+//			$scope.dizhi = [
+//							{
+//								id : 1,
+//								name : "河南"
+//							},
+//							{
+//								id : 2,
+//								name : "郑州"
+//							},
+//							{
+//								id : 3,
+//								name : "上海"
+//							},
+//							{
+//								id : 4,
+//								name : "新加坡"
+//							},
+//							{
+//								id : 5,
+//								name : "广州"
+//							}
+//							
+//						];
+
+				$scope.dizhi = [
+					{ id: "1001", name: "(1)班", grade: "一年级" },
+					{ id: "1002", name: "(2)班", grade: "一年级" },
+					{ id: "2001", name: "(1)班", grade: "二年级" },
+					{ id: "2002", name: "(2)班", grade: "二年级" },
+					{ id: "3001", name: "(1)班", grade: "三年级" },
+					{ id: "3002", name: "(2)班", grade: "三年级" }
+				];
+
+		}])
+		
+	</script>
+</html>

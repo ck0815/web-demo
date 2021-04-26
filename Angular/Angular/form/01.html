@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app = "myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../js/angular.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<form>
+				用户性别:<input type="radio" name="sex" ng-model="sexs" value="男"/>男
+					  <input type="radio" name="sex" ng-model="sexs" value="女"/>女
+				<br>爱好:<input type="checkbox" ng-model="insts1" ng-true-value="'搬砖'" ng-false-value="''"/>搬砖
+						<input type="checkbox" ng-model="insts2" ng-true-value="'扫大街'" ng-false-value="''"/>扫大街
+						<input type="checkbox" ng-model="insts3" ng-true-value="'敲代码'" ng-false-value="''"/>敲代码
+						
+						<br><input type="checkbox" name="insts" ng-model="yes"/>同意注册吗？
+						<br><input type="submit" ng-disabled="!yes" value="提交" />
+			</form>
+			<div>
+				用户性别为{{sexs}}<br>
+				用户的爱好{{insts1+insts2+insts3}}<br>
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module("myapp",[])
+		.controller("main",["$scope",function($scope){
+			$scope.sex = "男";
+		}])
+		
+	</script>
+</html>

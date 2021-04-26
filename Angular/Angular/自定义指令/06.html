@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--E 节点-->  
+		<my-directive></my-directive>
+		<!--c 类名-->
+		<div class="my-directive"></div>
+		<!--m 节点-->
+		<div my-directive></div>
+		<!--a注释-->
+		<!--directive:my-directive-->
+	</body>
+	<script type="text/javascript" src="../js/angular.js"></script>
+	
+	<script type="text/javascript">
+		//联式结构 
+		angular.module("myapp",[])
+		.directive("myDirective",function(){
+			return {
+				"restrict" : "ECMA",//渲染指令方式
+				"template" : "<div>我是一个帅哥<div ng-repeat='item in books'>{{item.name}}--{{item.price}}</div></div>",//显示在页面的模板内容
+//				"templateUrl" : "mytemplate",//特殊用法 通过id
+				"replace" : true, //表示替换
+				"controller" : function($scope){
+					    $scope.books = ["aa","bb","cc"];
+					    this.say = function(){
+							alert("aaa")
+						}
+				},
+				"controllerAs" : "books"
+		}})
+		.directive("myDirective2",function(){
+			return {
+				"restrict" : "ECMA",
+				"template" : "<div>第二个指令</div>",
+				"require" : "^myDirective",
+				
+			}
+		})
+		.controller("main",["$scope",function($scope){
+			
+		}])
+	</script>
+</html>

@@ -1,0 +1,232 @@
+
+/*     公用样式
+*=========================================
+*/
+
+.container {
+    width: 1160px !important;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.border-none {
+    border: none !important;
+}
+
+
+/*定位*/
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+.fixed {
+    position: fixed;
+}
+
+/* 居中 */
+.m-c {
+    margin: 0 auto !important;
+}
+
+
+/* 对齐方式 */
+.t-c-f {
+    text-align: center !important;
+}
+.t-l-f {
+    text-align: left !important;
+}
+.t-r-f {
+    text-align: right !important;
+}
+
+/* 省略 */
+.el-sl {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* 字体样式 */
+.f12 {
+    font-size: 12px !important;
+}
+.b {
+    font-weight: bold;
+}
+.b-n {
+    font-weight: normal;
+}
+
+
+/* 颜色值
+ * ===============
+ */
+
+.gray333 {
+    color: #333333 !important;
+}
+.gray666 {
+    color: #666666 !important;
+}
+.white{
+    color: #fff !important;
+}
+.bg-gray {
+    background: #F9F9F9;
+}
+
+/* 背景色 */
+.bg-nav {
+    background: #2E3137;
+}
+.bg-white{
+    background: #fff !important;
+}
+
+/*     loading加载样式
+ * =====================================
+ */
+ #loading-bar .bar {
+    background: #14ADEF !important;
+}
+
+
+/*气泡*/
+.toast{
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(0,0,0,.7);
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px 25px ;
+    color: #fff;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity .3s linear;
+    min-width: 100px;
+}
+.toast i{
+    font-size: 30px;
+    color: #fff;
+}
+
+/* margin
+ * ====================
+ */
+.m-t-40{
+    margin-top: 40px !important;
+}
+.m-b-200 {
+    margin-bottom: 200px !important;
+}
+.m-b-30 {
+    margin-bottom: 30px !important;
+}
+.m-b-60 {
+    margin-bottom: 60px !important;
+}
+.m-b-20 {
+    margin-bottom: 20px !important;
+}
+.m-b-10 {
+    margin-bottom: 10px !important;
+}
+.m-b-15 {
+    margin-bottom: 15px !important;
+}
+.m-b-0 {
+    margin-bottom: 0px !important;
+}
+.m-l-20{
+    margin-left: 20px;
+}
+.m-l-10 {
+    margin-left: 10px;
+}
+.m-r-10 {
+    margin-right: 10px !important;
+}
+.m-r-20{
+    margin-right: 20px;
+}
+.p-t-100 {
+    padding-top: 100px !important;
+}
+.p-l-10 {
+    padding-left: 10px;
+}
+.p-t-20{
+    padding-top: 20px;
+}
+
+/* 行高 */
+.line-h-30 {
+    line-height: 30px !important;
+}
+
+
+/* 强制换行 */
+.change-newline {
+    word-break:break-all;
+}
+
+
+/* 单行显示... */
+.line-show-ellipsis {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+/*定义宽度*/
+.width140{
+    width: 140px;
+}
+
+
+/*
+    分页样式
+*/
+
+.ems-page {
+    width: auto;
+    text-align: center;
+    clear: both;
+    height: 30px;
+}
+
+/*
+===========
+    header 头部
+===========
+*/
+.header {
+    height: 60px !important;
+    line-height: 60px;
+    min-width:1160px;
+    background: #FF6B00;
+    box-shadow: 0 2px 0 0 #F0F0F0;
+    color: #000;
+}
+
+/*公共尾部*/
+.footer{
+    width:100%;
+    height:40px;
+    line-height: 40px;
+    background: #eee;
+    text-align: center;
+    color:#a1a1a1;
+    margin-top:20px;
+}
+
+
+
+

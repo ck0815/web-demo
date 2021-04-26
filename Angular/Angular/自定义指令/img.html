@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/angular.js"></script>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		angular.module("myapp",[])
+		.controller("main",["$scope","$http",function($scope,$http){
+			$http.jsonp("http://new.yohobuy.com/common/getbanner?callback=jQuery112408156903500203043_1478861717350&client_type=web&content_code=b0856a771ef1b59ab1234c74688fa42d&_=1478861717351?callback=JSON_CALLBACK")
+			.success(function(data){
+				console.log(data)
+			})
+			.error(function(){
+				console.log("获取失败")
+			})
+		}])
+	</script>
+</html>

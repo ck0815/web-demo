@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		angular.module("myapp",[])
+		.controller("main",["$scope","$http",function($scope,$http){
+			$http({
+				"method":"GET",
+				"url":""
+			})
+			.then(function(){
+				
+			},
+			function(){
+				
+			}
+			)
+		}])
+	</script>
+</html>

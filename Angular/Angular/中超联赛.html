@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app = "myapp" ng-controller = "main">
+	<head>
+		<meta charset="UTF-8">
+		<title>中超联赛</title>
+		<style type="text/css">
+			.add{
+				color: green;
+			}
+			img{
+				width: 30px;
+				height: 30px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/zhongchao.js"></script>
+	</head>
+	<body>
+		<table class="table table-hover table-striped">
+			<tr><h1 class="text-center">中超联赛</h1></tr>
+			<tr>
+				<td class="form-group">
+					<input type="text" placeholder="全局搜索" class="form-control" ng-model="search.$"/>
+				</td>
+				<td></td>
+				<td class="form-group">
+					<input type="text" placeholder="比赛地区搜索" class="form-control" ng-model="search.MatchCity"/>
+				</td>
+				<td></td>
+				<td class="form-group">
+					<input type="text" placeholder="比赛球场搜索" class="form-control" ng-model="search.Situation"/>
+				</td>
+				<td></td>
+				<td class="form-group">
+					<input type="text" placeholder="比赛日期搜索" class="form-control" ng-model="search.date"/>
+				</td>
+			</tr>
+			<tr class="text-center">
+				<td ng-class="{'dropup' : order =='$index+1'}" ng-click="ji('$index+1',$event)">比赛编号<span class="caret"></span></td>
+				<td ng-class="{'dropup' : order =='MatchCity'}" ng-click="ji('MatchCity',$event)">比赛轮次<span class="caret"></span></td>
+				<td ng-class="{'dropup' : order =='Situation'}" ng-click="ji('Situation',$event)">比赛球场<span class="caret"></span></td>
+				<td ng-class="{'dropup' : order =='Team1'}" ng-click="ji('Team1',$event)">比赛主场<span class="caret"></span></td>
+				<td ng-class="{'dropup' : order =='Team2'}" ng-click="ji('Team2',$event)">比赛客场<span class="caret"></span></td>
+				<td ng-class="{'dropup' : order =='date'}" ng-click="ji('date',$event)">比赛日期<span class="caret"></span></td>
+				<td ng-class="{'dropup' : order =='status_cn'}" ng-click="ji('status_cn',$event)">比赛状态<span class="caret"></span></td>
+				<td>logo</td>
+			</tr>
+			<tr ng-repeat="s in datas | filter : search | orderBy : order" class="text-center">
+				<td>{{$index+1}}</td>
+				<!--<td>{{s.Round}}</td>-->
+				<td>{{s.MatchCity}}</td>
+				<td>{{s.Situation}}</td>
+				<td>{{s.Team1}}</td>
+				<td>{{s.Team2}}</td>
+				<td>{{s.date}}</td>
+				<td>{{s.status_cn}}</td>
+				<td><img src="{{s.Flag1}}"/></td>
+			</tr>
+		</table>
+	</body>
+</html>

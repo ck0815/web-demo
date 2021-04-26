@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{background: #737373;}
+			ul{width: 460px;height: 50px;}
+			ul li{width:150px;height: 50px;text-align: center;background: #222222;color: #F5F5F5;border: 1px solid #444444;float: left;list-style: none;line-height: 50px;}
+			#one{width: 800px;height: 400px;background: #262626;}
+			#one1{width: 800px;height: 400px;background: #245269;}
+			#one2{width: 800px;height: 400px;background: #8A6D3B;}
+			
+		</style>
+	</head>
+	<body ng-controller="main">
+			<!--E 节点-->  
+			<my-directive></my-directive>
+		
+	</body>
+	<script type="text/javascript" src="../js/angular.js"></script>
+	
+	<script type="text/javascript">
+		//联式结构 
+		angular.module("myapp",[])
+		.directive("myDirective",function(){
+			return {
+				"restrict" : "ECMA",					//渲染指令方式
+				"template" : "<div id='center'><ul><li ng-click='show()'>首页</li><li ng-click='show1()'>游戏</li><li ng-click='show2()'>图书</li></ul> <div ng-show='istrue' id='one'></div> <div ng-show='istrue1' id='one1'></div> <div ng-show='istrue2' id='one2'></div></div>",		//显示在页面的模板内容
+				"replace" : true, 						//表示替换
+				"controller" : function($scope){
+					
+				}
+		}})
+		.controller("main",["$scope","$rootScope",function($scope,$rootScope){
+			$scope.istrue = true;
+//			$scope.istrue1 = false;
+//			$scope.istrue2 = false;
+			
+			$scope.show = function(){
+				$scope.istrue = true;
+				$scope.istrue1 = false;
+				$scope.istrue2 = false;
+			}
+			$scope.show1 = function(){
+				$scope.istrue = false;
+				$scope.istrue1 = true;
+				$scope.istrue2 = false;
+			}
+			$scope.show2 = function(){
+				$scope.istrue = false;
+				$scope.istrue1 = false;
+				$scope.istrue2 = true;
+			}
+		}])
+	</script>
+</html>

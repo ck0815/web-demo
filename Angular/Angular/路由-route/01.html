@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app = "myapp" ng-controller = "main ">
+	<head>
+		<meta charset="UTF-8">
+		<title>rute</title>
+		<script type="text/javascript" src="../js/angular.min.js"></script>
+		<!--要使用angularJS的路由功能必须导入angularJS对应的路由js文件-->
+		<script type="text/javascript" src="../js/angular-route.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+				<!--锚点的导航功能-->
+				<a href="#/home">首页</a>
+				<a href="#/book/">图书</a>
+				<a href="#/game/">游戏</a>
+		</div>
+		<div ng-view>
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module("myapp",["ngRoute"])
+		//新的API $routePrivder配置在config中
+		.config(["$routeProvider",function($routeProvider){
+			$routeProvider
+			.when("/home",{template:"<h1>首页部分</h1>"})
+			.when("/book/",{template:"<h1>图书部分</h1>"})
+			.when("/game/",{template:"<h1>游戏部分</h1>"})
+			.otherwise({redirectTo:"/home"})
+		}])
+		.controller("main",["$scope",function($scope){
+			
+		}])
+		
+	</script>
+</html>

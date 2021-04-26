@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="./js注释规范.js"></script>
+<script>
+    // call and apply
+    // function add(a,b){ return a+b; }
+    // function sub(a,b){ return a-b; }
+
+    // var a1 = add.apply(sub,[4,2]);　　//即sub对象应用add对象的方法。
+    // add(1,2)
+    // // var a2 = sub.apply(add,[4,2]);
+
+
+    // /*call的用法*/
+    // var b1 = add.call(sub,4,2);
+    // console.log(a1)
+    // console.log(a2)
+    // console.log(b1)
+
+
+
+    // function Animal(name) {
+    //     this.name = name;
+    //     this.showName = function () {
+    //         alert(this.name);
+    //     }
+    // }
+    // var a = new Animal('aaa')
+    // var b = new Animal('bbb')
+
+    // a.showName()
+    // b.showName()
+    // console.log(a)
+    // function Cat(name) {
+    //     Animal.apply(this, [name]);
+    // }
+
+    // var cat = new Cat("咕咕");
+    // cat.showName();
+
+
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<h1>过滤</h1>
+		<!--数字过滤-->
+		{{2.33333 | number:1}}<br>
+		<!--货币过滤-->
+		{{999999999 | currency}}<br>
+		<!--转换大小写过滤-->
+		{{uname}}<br>
+		{{uname | uppercase}}<br>
+		{{uname | lowercase}}<br>
+		<!--时间过滤-->
+		{{dates | date : 'yyyy年MM月dd日HH时mm分ss秒sss毫秒'}}<br>
+		<!--$filter-->
+		{{fer}}
+	</body>
+	<script type="text/javascript">
+		angular.module("myApp",[])
+		.controller("main",["$scope","$filter",function($scope,$filter){
+			$scope.uname = "Ckk is very Good"
+			$scope.dates = new Date();
+			//
+			$scope.fer = $filter("date")($scope.dates,'yyyy年MM月dd日HH时mm分ss秒sss毫秒')
+		
+		}])
+	</script>
+</html>

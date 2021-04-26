@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.adds{
+				color: red;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+	<h1 class="text-center">购物列表</h1>
+		<div class="container">
+			<div class="col-md-4" class="form-group">
+				<input type="text" class="form-control" placeholder="全局搜索" ng-model="search.$"/>
+			</div>
+			<div class="col-md-4" class="form-group">
+				<input type="text" class="form-control" placeholder="通过名字搜索" ng-model="search.name"/>
+			</div>
+			<div class="col-md-4" class="form-group">
+				<input type="text" class="form-control" placeholder="通过id搜索" ng-model="search.id"/>
+			</div>
+			<thead>
+					<table class="table table-bordered text-center">
+				  		<tr>
+				  			<td>序号</td>
+				  			<!--dropup 是bootcss的下箭头样式 当order == id 也就是正序的时候添加这个样式 -->
+				  			<td ng-class="{'dropup' : order == 'id'}" ng-click = "zheng('id',$event)">书籍编号<span class="caret"></span></td>
+				  			<td ng-class="{'dropup' : order == 'name'}" ng-click = "zheng('name',$event)">书籍名称<span class="caret"></span></td>
+				  			<td ng-class="{'dropup' : order == 'price'}" ng-click = "zheng('price',$event)">书籍单价<span class="caret"></span></td>
+				  			<td ng-class="{'dropup' : order == 'count'}" ng-click = "zheng('count',$event)">书籍数量<span class="caret"></span></td>
+				  			<td>书籍总价</td>
+				  			<td>操作</td>
+				  		</tr>						
+				  				<!--循环--> 
+				  		<tr ng-repeat="item in books | filter : search |orderBy : order">
+				  			<td>{{$index+1}}</td>
+				  			<td>{{item.id}}</td>
+				  			<td>{{item.name }}</td>
+				  			<td>{{item.price | currency}}</td>
+				  			<td>				
+				  										<!--触发事件--改变书籍数量-->
+				  				<button class="btn btn-primary" ng-click="subCount(item.id)">-</button>
+				  				
+				  				<input type="number" ng-model="item.count"/>
+				  										<!--触发事件--改变书籍数量-->
+				  				<button class="btn btn-primary" ng-click="addCount(item.id)">+</button>
+				  			</td>
+				  			<!--单本书的总价-->
+				  			<td>{{item.price*item.count | currency:'RMB:'}}</td>
+				  			<td><button class="btn btn-danger" ng-click="delItem(item.id)">删除</button></td>
+				  		</tr>
+				  			<tr>
+				  			<td>--</td>
+				  			<td>--</td>
+				  			<td>--</td>
+				  			<td>购买总数量：{{countAll() | currency:'￥'}}</td>
+				  			<td>购买总价格：{{priceAll() | currency:'￥'}}</td>
+				  														<!--添加书籍显示与隐藏-->
+				  			<td><button class="btn btn-success" ng-click="showorhide = !showorhide">添加书籍</button></td>
+				  			<td><button class="btn btn-danger" ng-click="delAll()">删除全部</button></td>
+				  		</tr>
+					</table>
+					<div class="show form-group" ng-show="showorhide">
+							书籍编号：
+				  			<input type="text" class="form-control" ng-model="tain.id"/>
+							书籍名称：
+				  			<input type="text" class="form-control" ng-model="tain.name"/>
+				  			物品价格：
+				  			<input type="text" class="form-control" ng-model="tain.price"/>
+							书籍数量：
+				  			<input type="text" class="form-control" ng-model="tain.count"/>
+				  			<button class="btn btn-success" ng-click="addShu()">添加新书</button>
+				  	</div>
+			</thead>
+		</div>
+	</body>
+	<script type="text/javascript">
+			angular.module("myapp",[])
+			.factory("myfactory",function(){
+				
+			})
+			.controller("main",["$scope",function($scope){
+					//发送ajax请求 获取数据
+				var data = [
+					{
+						"id" : 1,
+						"name" : "javaScript",
+						"price" : 30,
+						"count" : 8
+					},
+					{
+						"id" : 2,
+						"name" : "php",
+						"price" : 16,
+						"count" : 12
+					},
+					{
+						"id" : 3,
+						"name" : "c++",
+						"price" : 15,
+						"count" : 20
+					},
+					{
+						"id" : 4,
+						"name" : "java",
+						"price" : 25,
+						"count" : 10
+					},
+					{
+						"id" : 5,
+						"name" : "c#",
+						"price" : 20,
+						"count" : 15
+					}
+				];
+				$scope.books = data;
+				//监控值得变化 books是监控的对象
+				$scope.$watch("books",function(){
+					//$scope.books 是循环的对象  
+					angular.forEach($scope.books,function(ele,index){
+						if(ele.count <= 0){
+							ele.count = 0;
+						}
+					})
+				},true)
+				//计算总数
+				$scope.countAll = function() {
+					let allCount = 0;
+					angular.forEach($scope.books,function(item,index) {
+						allCount += item.count;
+					});
+					return allCount;
+				}
+				//计算总价格
+				$scope.priceAll = function() {
+					let allPrice = 0;			//参数一是，参数2是这个参数的下标
+					angular.forEach($scope.books,function(item,index) {
+						allPrice += item.count*item.price;
+					});
+					return allPrice;
+				}
+				//减少书籍的数量//点击减1
+				$scope.subCount = function(id){
+					var index = findindexById(id);
+					if($scope.books[index].count <= 0){
+						$scope.books[index].count = 0;
+					}else{
+						$scope.books[index].count--;
+					}
+				}
+				//增加书籍的数量
+				$scope.addCount = function(id){
+					var index = findindexById(id);
+						$scope.books[index].count++;
+				}
+				//删除全部
+				$scope.delAll = function (){
+					//发送ajax数据到服务器 等后台返回已删除所有数据时在调用
+					$scope.books = "";//数据重新赋值为空的字符串
+				}
+				//删除一行
+				$scope.delItem = function (id) {
+					var yes = window.confirm("你确定删除这条数据么");
+					if(yes) {
+							/**
+							 * 发送ajax，只有后台返回已经成功把删除了数据后
+							 * 再在这边处理数据
+							 */
+							var index = findindexById(id);
+							/**
+							 * splic方法是Array的方法，删除数组
+							 * 第一个表示的是开始截取的位置
+							 * 第二个参数表示截取的位数 
+							 */
+							$scope.books.splice(index,1);
+					}
+				}
+				//通过id得到数据在数组中的位置（下标）
+				//封装一个函数方便调用
+				function findindexById(id){
+					let index = -1;
+	//				相当于for循环
+					angular.forEach($scope.books,function(item,key){
+						if(item.id == id){
+							index = key;
+						}
+					});
+					return index;
+				}
+/**********************************************************///////	
+				$scope.tain = {
+					id : "",
+					name : "",
+					price : 0,
+					count : 0
+				}	
+			//想表格里面添加内容
+			$scope.addShu = function(){
+				//封装个方法 
+				var isval = yesval();
+				console.log($scope.tain.count)
+				//如果返回true 执行下面的方法
+				if(isval){
+					//向books里面添加tain这个对象的内容
+					$scope.books.push($scope.tain);
+					//添加完后清空这个对象的值
+					$scope.tain = {};
+					//添加完后隐藏
+					$scope.showorhide = false;
+				}
+			}
+			//输入框的数据判断
+			function yesval(){
+				//flag 默认等于true 
+				var flag = true;
+				//输入内容不能为空
+				if($scope.tain.id.trim() == ""){
+						alert("您输入的id不能为空！");
+						flag = false;
+				}
+				if($scope.tain.name.length <= 0){
+						alert("您输入的书名不能为空！");
+						flag = false;
+				}
+				if($scope.tain.price <= 0){
+						alert("您输入的价格必须大于0！");
+						flag = false;
+				}
+				if($scope.tain.count <= 0){
+						alert("您输入的价格必须大于0！");
+						flag = false;
+				}
+				//要求输入的id不能重复
+				angular.forEach($scope.books,function(item,index){
+					//如果books的id有和输入tain的id重复弹出提示 
+					if(item.id == $scope.tain.id){
+						alert("您输入的id和已有的数据重复，请重新输入！");
+						flag = false;
+						//输入有误后清空输入框的值
+						$scope.tain.id = "";
+					}
+				});
+				return flag;
+			}
+/******************************************************************/				
+			//排序  默认id正序排序
+			$scope.order = "id";
+			//这里的data点击谁 就会传谁的值进来
+			$scope.zheng = function(data,e){
+				console.log(e)
+				//添加颜色 通过angular的子集
+				angular.element(e.target).parent().children().removeClass("adds");
+				angular.element(e.target).addClass("adds");
+				//判断order 的值 是不是和传进来的值一样 如果一样
+				//让这一次的 值为负 倒序排列
+				if($scope.order == data){
+					$scope.order = "-"+data;
+				}else{
+					//order 就代表传进来的数据  
+					$scope.order = data;
+				}
+				
+			}
+			
+			}])
+	</script>
+</html>

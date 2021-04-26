@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-controller="main">
+			<!--E 节点-->  
+			<my-directive bb = "msg" cc = "test" dd="{{der}}"></my-directive>
+			{{test}}
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="../js/angular.js"></script>
+	
+	<script type="text/javascript">
+		//联式结构 
+		angular.module("myapp",[])
+		.directive("myDirective",function(){
+			return {
+				"restrict" : "ECMA",					//渲染指令方式
+				"template" : "<div bb='msg'>自定义指令一</div>",		//显示在页面的模板内容
+				"replace" : true, 						//表示替换
+				/**
+				 * scope默认为false，表示使用同一个作用域，
+				 * 但是当我们设置为true时，此时，就是controller
+				 * 的作用域就是一个独立的作用域
+				 * 
+				 * 当scope是一个对象的时候，作用域也是一个
+				 * 独立的作用域，但是无法共享父级作用域
+				 */
+				"scope" : {
+					"aa" : "&bb",						//将父级的属性名称传递给子集  以函数方式调用
+					"bb" :"=cc",						//数据与父元素双向绑定
+					//注意，只能传递字符串等基本数据类型，
+					//子类修改值，父类不会受到影响
+					"cc" : "@dd"
+				},
+				"controller" : function($scope){
+					
+					console.log($scope.aa());
+					console.log($scope.bb);
+					console.log($scope.cc);
+					$scope.bb = "修改的数据"
+					
+				}
+		}})
+		.controller("main",["$scope","$rootScope",function($scope,$rootScope){
+			$scope.msg = "hello,word";
+			$scope.test = "hehe";
+			$scope.test = "文本";
+			$scope.der = "单项绑定"
+		}])
+	</script>
+</html>

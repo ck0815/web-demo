@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<!--<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
+	</head>
+	<body>
+			<div class="container">
+				<thead>
+					<table class="table table-bordered text-center">
+				  		<tr>
+				  			<td>test</td>
+				  			<td>书籍编号</td>
+				  			<td>书籍名称</td>
+				  			<td>书籍单价</td>
+				  			<td>书籍数量</td>
+				  			<td>书籍总价</td>
+				  			<td>操作</td>
+				  		</tr>
+				  		<tr ng-repeat="item in books" ng-class-even="'success'" ng-class-odd="'danger'">
+				  			<td>{{$index+1}}</td>
+				  			<td>{{item.id}}</td>
+				  			<td>{{item.name}}</td>
+				  			<td>{{item.price}}</td>
+				  			<td><button class="btn btn-danger">删除</button></td>
+				  		</tr>
+					</table>
+				</thead>
+				
+			</div>
+	</body>
+	<script type="text/javascript">
+		angular.module("myApp",[])
+		.controller("main",["$scope",function($scope){
+			
+			$scope.books = [
+				{
+					"id" : 1,
+					"name" : "javaScript",
+					"price" : 30,
+					"count" : 8
+				},
+				{
+					"id" : 2,
+					"name" : "php",
+					"price" : 16,
+					"count" : 12
+				},
+				{
+					"id" : 3,
+					"name" : "c++",
+					"price" : 15,
+					"count" : 20
+				},
+				{
+					"id" : 4,
+					"name" : "java",
+					"price" : 25,
+					"count" : 10
+				},
+				{
+					"id" : 5,
+					"name" : "c#",
+					"price" : 20,
+					"count" : 15
+				}
+			];
+//			$scope.books = data;
+
+
+
+		}])
+	</script>
+</html>

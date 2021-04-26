@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<select ng-model="group" ng-change="selected()">
+			<option value="">请选择你要查询的组</option>
+			<option value="1">凡人</option>
+			<option value="2">明星</option>
+			<option value="3">西游</option>
+		</select>
+		<table >
+			<tr><th>用户编号</th><th>用户名称</th><th>用户年龄</th></tr>
+			<tr ng-repeat="item in users">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.age}}</td>
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+		angular.module("myApp",[])
+		.controller("main",["$scope","$http",function($scope,$http){
+//				$http是angularJS实现ajax核心服务
+				$scope.slected = function(){
+					var promise = $http({
+						"url":"",
+						"method":"GET",
+						"params":{"did":$scope.group}
+					})
+					promise.success(function(data){
+						$scope.users = data;
+					})
+				}
+				
+		
+		}])
+	</script>
+</html>

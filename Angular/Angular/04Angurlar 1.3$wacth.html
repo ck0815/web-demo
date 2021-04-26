@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myapp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="angular.min.js"></script>
+	</head>
+	<body>
+		<div >
+			<input type="text" ng-model="val"/>
+			{{val}}
+		</div>
+		
+		
+		<script type="text/javascript">
+		
+			angular.module("myapp",[])
+			.controller("main",function($scope){
+				
+				var c = 1;
+				//watch方法监控对象的变化 函数内的参数1位变化后 参数2为变化前
+				$scope.$watch("val",function(x,y){
+					c++;
+					if (c>20){
+						$scope.val="你输入了20次了，休息一下吧!";
+					}
+				})
+					
+			})
+		</script>
+	</body>
+</html>

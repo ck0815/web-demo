@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<h1>show/hide</h1>
+		<button ng-click="change()">切换</button>
+		
+		<div ng-show="isShow">
+			北京程序猿起床了，厦门程序猿还在睡梦中；
+		　　北京程序猿在挤地铁，厦门程序猿还在睡梦中；
+		　　北京程序猿终于下车了，厦门程序猿嚼着早饭上班去。
+		</div>
+		<div ng-hide="isShow">
+			作为睡眠最短榜的榜首，宁夏的程序猿补觉老狠了。平时只睡5小时53分钟的他们周末睡了8小时34分钟
+			，今年春节更是以9小时25分钟的睡眠时长稳居睡眠最长榜的TOP1！心疼我猿，一年也睡不了多少好觉。
+		</div>
+	</body>
+	<script type="text/javascript">
+		angular.module("myApp",[])
+		.controller("main",function($scope){
+			//isshow 为假 show--显示  hide--隐藏
+			$scope.isShow = false;
+//			当点击按钮 isshow为真 show--隐藏 hide--显示
+			$scope.change = function() {
+				//isshow 转换为假
+				$scope.isShow = !$scope.isShow;
+			}
+
+		})
+	</script>
+</html>

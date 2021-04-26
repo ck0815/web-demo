@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<div class="content" ng-controller="mycon1">
+			<input type="text" name="username" ng-model="username"/><br>
+			{{username}}
+			<div ng-bind="username"></div>
+			
+			<div class="content" ng-controller="mycon2">
+				<input type="text" name="username" ng-model="username"/><br>
+				{{username}}
+				<div ng-bind="username"></div>
+			</div>	
+			
+		</div>	
+		
+		<div class="content" ng-controller="mycon3">
+			<input type="text" name="username" ng-model="username"/><br>
+			{{username}}
+			<div ng-bind="username"></div>
+		</div>	
+		<script type="text/javascript">
+		//控制器之间的传参方法1，$rootscope,2控制 器之间的关联关系
+			function mycon1($scope){
+				$scope.username="ck";
+//				$rootScope.username=$scope.username;//第一种方式
+			}
+			function mycon2($scope){
+				$scope.username="ckk";
+				
+//				$scope.username=$scope.$$.parent.username;//2,通过控制器间的关联传参
+			}
+			function mycon3($scope){
+				$scope.username="hahaha";
+//				$scope.username=$rootScope.username;//第一种方式
+			}
+		</script>
+	</body>
+</html>

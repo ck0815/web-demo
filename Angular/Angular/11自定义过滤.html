@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<h1>自定义过滤器--两种写法</h1>
+		{{books | filter : myfilter}}<hr>
+		
+	</body>
+	<script type="text/javascript">
+		angular.module("myApp",[])
+		.controller("main",["$scope",function($scope){
+			var books = [
+					{
+						"id" : 1,
+						"name" : "javaScript",
+						"price" : 30,
+						"count" : 8
+					},
+					{
+						"id" : 2,
+						"name" : "php",
+						"price" : 16,
+						"count" : 12
+					},
+					{
+						"id" : 3,
+						"name" : "c++",
+						"price" : 15,
+						"count" : 20
+					},
+					{
+						"id" : 4,
+						"name" : "java",
+						"price" : 25,
+						"count" : 10
+					},
+					{
+						"id" : 5,
+						"name" : "c#",
+						"price" : 20,
+						"count" : 15
+					}
+				];
+				$scope.myfilter = function(data){
+					console.log(data)
+					if(data.name.indexOf("java") > -1){
+						return data;
+					}
+				}
+				
+		}])
+	</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="main">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+	</head>
+	<body>
+		<input type="text" ng-model="val1"/>
+		<select ng-model="opt">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+			
+		</select>
+		<input type="text" ng-model="val2"/>
+		
+		<button ng-click="ji()">=</button>
+		
+		<input type="text"ng-model="val3"/>
+	</body>
+	<script type="text/javascript">
+		angular.module("myApp",[])
+		.controller("main",function($scope){
+			
+			$scope.ji = function(){
+				//判断 对象的条件和case里面的条件进行比较判断相同就执行不同就跳过
+				switch($scope.opt){
+					//如果是“+”：执行后面的方法
+					//因为是加法是两个字符串相加 所以需要转为数字 1，字符串*1转为数字类型
+														//	2,输入框 声明数字类型  nuber
+														//  3,
+					case"+":$scope.val3 = ($scope.val1*1) + ($scope.val2*1);
+					break;//如果符合条件 就跳出循环 不在看下面代码
+				}
+				switch($scope.opt){
+					case"-":$scope.val3 = $scope.val1 - $scope.val2;
+					break;
+				}
+				switch($scope.opt){
+					case"*":$scope.val3 = $scope.val1 * $scope.val2;
+					break;
+				}
+				switch($scope.opt){
+					case"/":$scope.val3 = $scope.val1 / $scope.val2;
+					break;
+				}
+			}
+		})
+	</script>
+</html>
