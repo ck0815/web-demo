@@ -175,7 +175,63 @@ let inFn = (obj: rule) => {
 inFn({x:1, y:2})
 
 // class
+interface Ipoint {
+    x : number,
+    y : number,
+    fn1 : () => void,
+    fn2 : (p:Ipoint) => number
+}
+// 定义class 
+// class cat implements Ipoint {
+//   x: number
+//   y: number
+//   // 构造函数
+//   constructor(x?,y:number = 2){
+//     this.x = x
+//     this.y = y
+//   }
 
+//   fn1 = () => {
+//     console.log('x',this.x,'y',this.y)
+//   }
+//   fn2 = () => {
+//     return this.x + this.y
+//   }
+// }
+// let obj = new cat()
+// obj.x = 1
+// obj.y = 2
+// console.log('class',obj.fn1());
+// console.log('class',obj.fn2());
 
+// let obj = new cat(1,2)
+// let obj = new cat()
+// console.log('class',obj.fn2());
 
+class cat implements Ipoint {
+  // x: number
+  // y: number
+  // 构造函数
+  // access modifier 访问修饰符
+  constructor(public x:number = 1, private y:number = 2){
+    this.x = x
+    this.y = y
+  }
+
+  fn1 = () => {
+    console.log('x',this.x,'y',this.y)
+  }
+  fn2 = () => {
+    return this.x + this.y
+  }
+}
+let obj = new cat()
+console.log('class',obj.fn2());
+
+// access modifier 访问修饰符
+let obj1 = new cat()
+// public  公有属性 外部可访问
+// obj1.x = 2
+// private  内部属性 外部不可访问
+// obj1.y = 2
 

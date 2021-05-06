@@ -143,4 +143,50 @@ var inFn = function (obj) {
     console.log({ x: obj.x, y: obj.y });
 };
 inFn({ x: 1, y: 2 });
-// class
+// 定义class 
+// class cat implements Ipoint {
+//   x: number
+//   y: number
+//   // 构造函数
+//   constructor(x?,y:number = 2){
+//     this.x = x
+//     this.y = y
+//   }
+//   fn1 = () => {
+//     console.log('x',this.x,'y',this.y)
+//   }
+//   fn2 = () => {
+//     return this.x + this.y
+//   }
+// }
+// let obj = new cat()
+// obj.x = 1
+// obj.y = 2
+// console.log('class',obj.fn1());
+// console.log('class',obj.fn2());
+// let obj = new cat(1,2)
+// let obj = new cat()
+// console.log('class',obj.fn2());
+var cat = /** @class */ (function () {
+    // x: number
+    // y: number
+    // 构造函数
+    function cat(x, y) {
+        var _this = this;
+        if (x === void 0) { x = 1; }
+        if (y === void 0) { y = 2; }
+        this.x = x;
+        this.y = y;
+        this.fn1 = function () {
+            console.log('x', _this.x, 'y', _this.y);
+        };
+        this.fn2 = function () {
+            return _this.x + _this.y;
+        };
+        this.x = x;
+        this.y = y;
+    }
+    return cat;
+}());
+var obj = new cat();
+console.log('class', obj.fn2());
