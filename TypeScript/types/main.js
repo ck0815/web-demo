@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var cat_1 = require("./cat");
 // 基础类型
 function add(n1, n2) {
     return n1 + n2;
@@ -143,6 +146,13 @@ var inFn = function (obj) {
     console.log({ x: obj.x, y: obj.y });
 };
 inFn({ x: 1, y: 2 });
+// class
+// interface Ipoint {
+//     // x : number,
+//     // y : number,
+//     fn1 : () => void,
+//     fn2 : (p:Ipoint) => number
+// }
 // 定义class 
 // class cat implements Ipoint {
 //   x: number
@@ -167,26 +177,35 @@ inFn({ x: 1, y: 2 });
 // let obj = new cat(1,2)
 // let obj = new cat()
 // console.log('class',obj.fn2());
-var cat = /** @class */ (function () {
-    // x: number
-    // y: number
-    // 构造函数
-    function cat(x, y) {
-        var _this = this;
-        if (x === void 0) { x = 1; }
-        if (y === void 0) { y = 2; }
-        this.x = x;
-        this.y = y;
-        this.fn1 = function () {
-            console.log('x', _this.x, 'y', _this.y);
-        };
-        this.fn2 = function () {
-            return _this.x + _this.y;
-        };
-        this.x = x;
-        this.y = y;
-    }
-    return cat;
-}());
-var obj = new cat();
-console.log('class', obj.fn2());
+// class cat implements Ipoint {
+//   // x: number
+//   // y: number
+//   // 构造函数
+//   // access modifier 访问修饰符
+//   constructor(public x:number = 1, private y:number = 2){
+//     this.x = x
+//     this.y = y
+//   }
+//   fn1 = () => {
+//     console.log('x',this.x,'y',this.y)
+//   }
+//   fn2 = () => {
+//     return this.x + this.y
+//   }
+//   // set X () {
+//   //   this.X = 1
+//   // }
+//   // get X () {
+//   //   return this.X
+//   // }
+// }
+// let obj = new cat()
+// console.log('class',obj.fn2());
+// access modifier 访问修饰符 
+// module 模块
+var obj1 = new cat_1.cat();
+// public  公有属性 外部可访问
+// obj1.x = 2
+// private  内部属性 外部不可访问
+// obj1.y = 2
+console.log('module 模块', obj1);

@@ -1,3 +1,4 @@
+import { cat } from './cat' 
 
 // 基础类型
 function add(n1 : number,n2:number){
@@ -175,12 +176,12 @@ let inFn = (obj: rule) => {
 inFn({x:1, y:2})
 
 // class
-interface Ipoint {
-    x : number,
-    y : number,
-    fn1 : () => void,
-    fn2 : (p:Ipoint) => number
-}
+// interface Ipoint {
+//     // x : number,
+//     // y : number,
+//     fn1 : () => void,
+//     fn2 : (p:Ipoint) => number
+// }
 // 定义class 
 // class cat implements Ipoint {
 //   x: number
@@ -208,30 +209,53 @@ interface Ipoint {
 // let obj = new cat()
 // console.log('class',obj.fn2());
 
-class cat implements Ipoint {
-  // x: number
-  // y: number
-  // 构造函数
-  // access modifier 访问修饰符
-  constructor(public x:number = 1, private y:number = 2){
-    this.x = x
-    this.y = y
-  }
+// class cat implements Ipoint {
+//   // x: number
+//   // y: number
+//   // 构造函数
+//   // access modifier 访问修饰符
+//   constructor(public x:number = 1, private y:number = 2){
+//     this.x = x
+//     this.y = y
+//   }
+//   fn1 = () => {
+//     console.log('x',this.x,'y',this.y)
+//   }
+//   fn2 = () => {
+//     return this.x + this.y
+//   }
 
-  fn1 = () => {
-    console.log('x',this.x,'y',this.y)
-  }
-  fn2 = () => {
-    return this.x + this.y
-  }
-}
-let obj = new cat()
-console.log('class',obj.fn2());
+//   // set X () {
+//   //   this.X = 1
+//   // }
+//   // get X () {
+//   //   return this.X
+//   // }
+// }
+// let obj = new cat()
+// console.log('class',obj.fn2());
 
-// access modifier 访问修饰符
+// access modifier 访问修饰符 
+// module 模块
 let obj1 = new cat()
 // public  公有属性 外部可访问
 // obj1.x = 2
 // private  内部属性 外部不可访问
 // obj1.y = 2
+console.log('module 模块',obj1)
+
+
+// Generics 泛型
+let lastArr = <T>(arr: T[]) => {
+  return arr[arr.length - 1]
+}
+console.log(lastArr([1,2,3,4]));
+console.log(lastArr<string>(['a','b','c']));
+console.log(lastArr<string | number>(['a','b','c', 4, 5, 6]));
+// 多泛型
+let demo = <T, Y>(x: T, y: Y) => [x,y]
+console.log(demo(1,'a'));
+console.log(demo<boolean,number>(true,1));
+
+
 
