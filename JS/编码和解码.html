@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    编码和解码
+  </div>
+  <script>
+    let url = 'http://localhost:8080/operation/application/list?name=小明'
+    // 编码 除了ASCLL （a-z,0-9）以外都会编码
+    console.log(escape(url)); 
+    // 解码
+    console.log(unescape(url)); 
+
+    // 编码 只对中文进行编码   最常用
+    console.log(encodeURI(url)); 
+    // 解码
+    console.log(decodeURI(url)); 
+
+    // 编码 该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ' ( ) 。
+    console.log(encodeURIComponent(url)); 
+    // 解码
+    console.log(decodeURIComponent(url)); 
+
+  </script>
+</body>
+</html>

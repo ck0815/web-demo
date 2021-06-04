@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div onclick="fun()">
+    html
+  </div>
+  <div id="dom0">
+    dom0
+  </div>
+  <div id="dom2">
+    dom2
+  </div>
+
+
+  <script>
+    // html 事件
+    function fun () {
+      console.log('html');
+    }
+
+    // dom 0级事件 常规的事件绑定只执行最后绑定的事件
+    document.getElementById('dom0').onclick = function(){
+      console.log('dom0');
+    }
+
+    // dom 2级事件 事件监听 可以绑定多个事件
+    document.getElementById('dom2').addEventListener('click',function(){
+      console.log('dom2');
+    })
+
+    //  原因:js不支持事件重载,绑定事件相当于一个变量存储的是函数的地址,如果再绑定一个事件,相当于变量指向另
+    // 个函数的地址;事件监听相当于订阅发布者,改变了数据,触发了事件,订阅这个事件的函数被执行
+  </script>
+</body>
+</html>

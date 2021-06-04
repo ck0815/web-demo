@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    排序
+  </div>
+  <script>
+    // let arr = [2,4,1,3]
+    // console.log(arr.sort());    // 1 2 3 4 
+    
+    // 不是按照数值排序的 是unicode 码表排序
+    let arr = [3,56,99,66,9,88]
+    console.log(arr.sort()); 
+    // 解决方案 - 定义比较器函数
+    // sort(callBack)
+    // 小于0 升序 大于0 降序
+    let callBack = function (x,y) { return x-y }  
+    // let callBack = function (x,y) { return y-x }  
+    console.log(arr.sort(callBack))
+  </script>
+</body>
+</html>
