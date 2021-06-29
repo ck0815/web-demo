@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>观察者模式</title>
+</head>
+
+<body>
+  <div>
+    观察者模式
+  </div>
+  <script>
+    /*
+      观察者 和 发布订阅 两个模式
+
+      观察者模式：监控一个对象的状态，一旦状态发生变化，马上出发技能
+        监控
+        被观察者
+        观察者
+        当被观察者触发条件的时候，观察者触发技能
+      需要两个构造函数实现
+        1.创建被观察者
+          属性，自己的状态
+          队列，记录都有谁观察着自己 数组[]
+          方法1，能设置自己的状态，当需要改变的时候需要触发这个方法改变状态
+          方法2，添加观察者
+          方法3，删除观察者
+        2.创建观察者
+          需要身份证明
+          需要一个技能
+        
+    */
+
+    // 创建观察者
+    class ObSrerver {
+      constructor(name, fn) {
+        this.name = name
+        this.fn = fn
+      }
+    }
+    let ls = new ObSrerver('老师',state => { console.log(`因为 ${state} ,把你爸找来`)})
+    let zr = new ObSrerver('主任',state => { console.log(`因为 ${state} ,你班主任是谁`)})
+    let xz = new ObSrerver('校长',state => { console.log(`因为 ${state} ,骂你班主任`)})
+
+
+    // 创建被观察者
+    class Subject {
+      constructor(state) {
+        // 状态
+        this.state = state
+        // 观察者
+        this.obSrervers = []
+      }
+
+      // 改变状态
+      setState(val) {
+        this.state = val
+
+        // 需要触发所有观察者的技能
+        this.obSrervers.forEach(item => {
+          item.fn(this.state)
+        })
+      }
+
+      // 添加观察者
+      addObServer(obs) {
+        // 判断是否重复添加了观察者
+        let stu = this.obSrervers.find(v => v === obs)
+        if(stu) return
+
+        this.obSrervers.push(obs)
+      }
+
+      // 删除观察者
+      delObServer(obs) {
+        this.obSrervers = this.obSrervers.filter(v => v !== obs)
+      }
+    }
+
+    let xiaoming = new Subject('学习')
+    xiaoming.addObServer(ls)
+    xiaoming.addObServer(xz)
+    xiaoming.addObServer(zr)
+    // xiaoming.delObServer(xz)
+
+    let xiahong = new Subject('学习')
+    xiahong.addObServer(ls)
+    xiahong.addObServer(xz)
+    console.log(xiaoming,xiahong);
+  </script>
+</body>
+
+</html>

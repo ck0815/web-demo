@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布订阅</title>
+</head>
+
+<body>
+  <div>
+    发布订阅
+  </div>
+  <script>
+    /*
+      观察者 和 发布订阅 两个模式
+
+      发布订阅:
+        有一个对象，有人一直看着他
+        当这个对象发生变化的时候，第三方通知这个看着的人，触发技能
+        
+        例子：
+          普通 买书
+            去书店，问，没有，回家
+            过一会再去，问，没有，回家
+          订阅发布 买书
+            去书店，问，没有，留下联系方式
+            一旦有书了，就会接到电话
+            触发技能去买书
+
+        构造函数
+
+    */
+
+    // 创建观察者
+    class ObSrerver {
+      constructor() {
+        this.msg = {}
+      }
+
+      // 订阅 向队列中添加内容
+      on(type, fn) {
+        // 判断是否有订阅过 没有 声明空数组 
+        if (!this.msg[type]) {
+          this.msg[type] = []
+        }
+        // 添加进去
+        this.msg[type].push(fn)
+      }
+
+      // 删除订阅 删除消息队列中的内容
+      off(type, fn) {
+        // 如果没有规定删除某一个事件就取消当前所有订阅
+        if (!fn) {
+          delete this.msg[type]
+          return
+        }
+
+        // 判断是否订阅过
+        if (!this.msg[type]) return
+
+        // 如果有规定删除指定的
+        this.msg[type] = this.msg[type].filter(v => v !== fn)
+      }
+
+      // 触发订阅事件
+      emit(type) {
+        // 判断是否订阅过
+        if (!this.msg[type]) return
+
+        // 全部触发
+        this.msg[type].forEach(item => {
+            item()
+        })
+      }
+    }
+
+    function msg1() { console.log('msg1') }
+    function msg2() { console.log('msg2') }
+    function msg3() { console.log('msg3') }
+    function msg4() { console.log('msg4') }
+
+    let p1 = new ObSrerver()
+    p1.on('a', msg1)
+    p1.on('a', msg2)
+    p1.on('b', msg2)
+    p1.on('b', msg3)
+    p1.on('b', msg4)
+
+    // 两种情况
+    // 取消订阅的所有事件
+    // p1.off('a')
+    // 取消订阅的每一个事件
+    p1.off('a', msg1)
+
+    // 触发a行为 把a所有事件触发
+    p1.emit('b')
+
+    console.log(p1);
+  </script>
+</body>
+
+</html>
