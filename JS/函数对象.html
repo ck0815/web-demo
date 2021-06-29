@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+
+  </div>
+  <script>
+    // 匿名函数 定义时没有任何变量引用的函数
+    // 节约内存空间 调用前后内存不创建任何函数对象
+    // 闭包自调
+    // (function(num1,num2){
+    //     console.log(num1,num2);
+    // })(1,2);
+    // (function(window,undefined){
+    //   var jq;
+    //   window.jq = jq;
+    // })(window);
+
+    // // 回调函数
+    // let arr = [1,2,3,5,4,7,6]
+    // arr.sort(function(a,b){return a - b})
+    // // 异步回调 ajax
+
+    // // 递归函数 循环调用函数本身
+    // // let f = function(){
+    // //   if(x ==2) {
+    // //     return x
+    // //   }else{
+    // //     return x * f(x -1)
+    // //   }
+    // // }
+
+    // // arguments.callee = 函数本身，  在严格模式下不支持使用
+    // let f = function(){
+    //   if(x ==2) {
+    //     return x
+    //   }else{
+    //     return x * arguments.callee(x -1)
+    //   }
+    // }
+
+    // // 构造函数
+    // // 习惯上首字母大写
+    // // 调用方式不一样 作用不一样  （用来新建实例对象）
+    // function Person (){
+    //   console.log('构造函数...');
+    // }
+    // let a = new Person()
+
+    // 变量提升
+    // 变量和函数提升
+    // 先提升变量，再提升函数
+
+    // // 作用域 - scope
+    // // 1，全局作用域 - window
+    // // 2，函数作用域 - function(){}
+    // function fn(){
+    //   function b(){}
+    //   console.log(b);
+    // }
+    // fn()
+    // console.log(fn);
+    // //  作用域链 - scope chain
+    // var arr1 = [{name: 1},{name: 2}]
+    // function fn1(){
+    //     for (var i = 0; i < arr1.length; i++) {
+    //       arr1[i].fn = function(){
+    //           console.log(i)
+    //       }
+    //     }
+    // }
+    // fn1()
+    // console.log(arr1[0].fn())
+    // console.log(arr1[1].fn())
+
+    // js执行 - 单线程
+    
+
+  </script>
+</body>
+</html>

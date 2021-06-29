@@ -17,6 +17,29 @@
     dom2
   </div>
 
+  <hr>
+
+  <div style="background-color: aqua;padding: 20px;" id="num0">
+    0
+    <div style="background-color:aquamarine;padding: 20px;" id="num1">
+      1
+      <div style="background-color: bisque;padding: 20px;" id="num2">
+        2
+      </div>
+    </div>
+  </div>
+  
+  <!-- 利用事件冒泡 - 事件委托 -->
+  <ul style="background-color: aqua;padding: 20px;" id="num3">
+    <li>0</li>
+    <li>1</li>
+    <li>2</li>
+  </ul>
+
+  <div>
+    <a href="https://www.baidu.com/" id="a">baidu</a>
+  </div>
+
 
   <script>
     // html 事件
@@ -33,9 +56,43 @@
     document.getElementById('dom2').addEventListener('click',function(){
       console.log('dom2');
     })
+    //  原因:js不支持事件重载,绑定事件相当于一个变量存储的是函数的地址,如果再绑定一个事件,相当于变量指向另个函数的地址;
+    //  事件监听相当于订阅发布者,改变了数据,触发了事件,订阅这个事件的函数被执行
 
-    //  原因:js不支持事件重载,绑定事件相当于一个变量存储的是函数的地址,如果再绑定一个事件,相当于变量指向另
-    // 个函数的地址;事件监听相当于订阅发布者,改变了数据,触发了事件,订阅这个事件的函数被执行
+    // 事件触发
+    //     事件对象：事件触发时候自动创建的，封装了事件发生的元素和属性信息    
+    //     window.event // ie  e.target // 触发元素对象  ie:e.srcElement
+    // 事件捕获
+    //     addEventListener 第三个参数为true，事件处于捕获阶段，默认false
+    //     ie没有捕获阶段
+    // 事件冒泡
+    //     e.stopPropagation()阻止冒泡  IE:e.cancelBubble=true 阻止冒泡
+    document.getElementById('num0').addEventListener('click',function(e){
+      alert(0)
+    })
+
+    document.getElementById('num1').addEventListener('click',function(e){
+      alert(1)
+    })
+
+    document.getElementById('num2').addEventListener('click',function(e){
+      alert(2)
+      e.stopPropagation()
+    })
+
+    //  利用冒泡（事件委托）
+    document.getElementById('num3').addEventListener('click',function(e){
+      console.log(e);
+      alert(e.target.innerHTML)
+    })
+
+    // 阻止默认行为
+    document.getElementById('a').addEventListener('click',function(e){
+      e.preventDefault();
+      // 限于 onclick 注册的事件
+      // return false
+    })
+    
   </script>
 </body>
 </html>
