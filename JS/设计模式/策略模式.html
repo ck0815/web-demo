@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>策略模式</title>
+</head>
+
+<body>
+  <div>
+    策略模式
+  </div>
+  <script>
+    /*
+      策略模式
+        一个问题匹配多个解决方案
+        而且有可能谁是还会添加多个方案
+      例子
+        购物车结算
+        满 100 减10
+        满 200 减15
+        8折
+    */
+
+    // 
+    let calcPrice = (function () {
+      let sale = {
+        '100_10': function (price) { return price -= 10 },
+        '200_15': function (price) { return price -= 15 }
+      }
+
+      let calcPrice = function (type, price) {
+        // 判断折扣是不是存在
+        if (!sale[type]) return '折扣不存在'
+        // 返回对应折扣计算后的值
+        return sale[type](price)
+      }
+
+      // 添加折扣规则
+      calcPrice.add = function (type, cb) {
+        // 判断折扣是不是存在
+        if (sale[type]) return '折扣已经存在'
+        // 添加折扣
+        sale[type] = cb
+      }
+
+      // 删除折扣规则
+      calcPrice.del = function (type, cb) {
+       delete sale[type] 
+      }
+
+      return calcPrice
+    })()
+
+    let p1 = calcPrice('100_10', 100)
+    console.log(p1);
+
+    // 添加规则
+    calcPrice.add('300_30', function (price) { return price -= 30 })
+    calcPrice.add('400_40', function (price) { return price -= 40 })
+
+    calcPrice.del('100_10', function (price) { return price -= 40 })
+
+    let p2 = calcPrice('300_30', 100)
+    let p3 = calcPrice('100_10', 100)
+
+    console.log(p2);
+    console.log(p3);
+  </script>
+</body>
+
+</html>
