@@ -97,12 +97,8 @@ module.exports = {
   },
 
   // webpack-dev-server 配置
-  devServer:{
-    // 
-    contentBase: path.resolve(__dirname, 'dist'),
-    // 
-    open: true,
-    // 端口
-    port: 9000
+  devServer: {
+    // contentBase: path.resolve(__dirname, 'dist'),
+    // open: true
   }
 };

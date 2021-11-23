@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise</title>
+</head>
+<body>
+  <pre>
+    手写Promise
+  </pre>
+  <script>
+    function myPromise (fn) {
+        let self = this
+        // 状态
+        self.status = 'pending'
+        // 成功结果
+        self.value = null
+        // 失败原因
+        self.msg = null
+
+        function resolve (value) {
+          if(self.status === 'pending'){
+            self.value = value
+            self.status = 'success'
+          }
+        }
+
+        function resject (err) {
+          if(self.status === 'pending'){
+            self.value = err
+            self.status = 'err'
+          }
+        }
+
+        try {
+          fn(resolve, resject)
+        } catch (err) {
+          resject(err)
+        }
+    }
+    myPromise.prototype.then = function (onFulfilled, onRejected) {
+
+    }
+
+    let promise1 = new myPromise((onFulfilled, onRejected) => {
+      console.log(11111111, onFulfilled , onRejected)
+    })
+  </script>
+</body>
+</html>

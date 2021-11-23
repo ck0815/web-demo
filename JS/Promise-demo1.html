@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise</title>
+</head>
+<body>
+  <pre>
+    什么是Promise?
+    1. 异步的
+    2. 三种状态：等待状态 => 实现承若 : 承若没有实现
+    3. 状态不可逆
+
+  </pre>
+  <script>
+    // demo1 同步与异步问题
+    function fn1 (){
+      let num = 1
+      // 以下为异步
+      setTimeout(() => {
+        return num
+      })
+    }
+    // promise
+    function fn2 (){
+      let num = 1
+      // 以下为异步
+      return new Promise((resolve,reject) => {
+        setTimeout(() => {
+          resolve(num) 
+        })
+      })
+    }
+    // 直接执行是同步
+    let a = fn1()
+    let b = fn2().then(res => {
+        console.log(res,111)
+    })
+    // undefind
+    console.log(a)
+    // return Promise 对象
+    console.log(b)
+
+    // demo2 
+    let flag = false
+    let proimse1 = new Promise((resolve,reject) => {
+      if(flag) {
+        let lv = {
+          color: 'red',
+          price: '$99'
+        }
+        resolve(lv)
+      }else{
+        let msg = new Error('加班，忘记了。')
+        reject(msg)
+      }
+    })
+    // 测试一下
+    function test1 () {
+      proimse1.then(res => {
+        console.log('实现了承若',res)
+      }).catch(err => {
+        console.log('没有实现承若',err)
+      })
+    }
+    test1()
+
+    // 链式调用
+
+
+  </script>
+</body>
+</html>
