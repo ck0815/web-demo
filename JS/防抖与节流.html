@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      height: 1400px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    防抖与节流
+  </div>
+  <script>
+        // 事件防抖： 一定时间内只允许出现一次
+        // 对于短时间内连续触发的事件（滚动事件），防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。
+
+        // 函数节流： 多次变成一次
+        // 如果短时间内大量触发同一事件，那么在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效。
+
+        // 事件防抖
+        function debounce(fn,time) {
+          let timer = null
+          return function() {
+            if(timer){
+              clearTimeout(timer)
+            }
+            timer = setTimeout(fn,time)
+          }
+        }
+
+        // 函数节流
+        function throttle(fn,time){
+          let status = true
+
+          console.log(status, 111);
+          return function (){
+            if(!status){
+              return false
+            }
+
+            status = false
+            setTimeout(()=> {
+              fn()
+              status = true
+            }, time)
+          }
+        }
+
+        function fn (){
+          var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+　　      console.log('滚动条位置：' + scrollTop); 
+        }
+        // 例如滚动条监听
+        // window.onscroll = debounce(fn,1000)
+        window.onscroll = throttle(fn,1000)
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    原型链与继承
+  </div>
+  <script>
+    function Person() {
+
+    }
+
+    // Person.prototype.name = 'ckk'
+    Person.prototype.age = 18
+    Person.prototype.eat = function(){
+      console.log(this.name, 'eat.....');
+    }
+
+    let ck1 = new Person()
+    console.log(ck1, '由Person构造而来。。。')
+    console.log(ck1.constructor, '构造器。。。')
+    // ck1.name = 'ck'
+    console.log(ck1.name, '')
+
+    // 原型链的查找规则
+    // 沿着原型链 _proto_ 一层一层的往上查找，知道找到位置
+    // null => Obrject,Array 基类 => {} []
+    ck1.a = '基本属性'
+    let item
+    for(item in ck1){
+      console.log(item, 111);
+      // 
+      if(ck1.hasOwnProperty(item)){
+        console.log(item, 222);
+      }
+    } 
+
+  </script>
+</body>
+</html>

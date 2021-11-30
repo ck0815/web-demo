@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    闭包
+  </div>
+  <script>
+    // 一个函数里面嵌套另外一个函数。嵌套（内部）函数对其容器（外部）函数是私有的。它自身也形成了一个闭包。
+    // 一个闭包是一个可以自己拥有独立的环境与变量的的表达式（通常是函数，因为ES6有了块级作用域的概念）
+    //  闭包就是能够读取其他函数内部变量的函数。
+    // 闭包可以简单理解成“定义在一个函数内部的函数“。
+    let num = 1
+    function fn1() {
+      let b = 2
+      console.log(num, 1111);
+    }
+    // console.log(b);
+    fn1()
+    // js垃圾回收机制在fn1执行完成后清除了b 所以访问不到
+
+    // 模块化
+    let fn2 = function() {
+      let num1 = 0
+      function changeFn (val){
+        num1 += val
+      }
+      
+      return {
+        add: function(){
+          changeFn(1)
+        },
+
+        reduce: function(){
+          changeFn(-1)
+        },
+
+        value: function() {
+          return num1
+        }
+      }
+    }
+
+    let count1 = fn2()
+    let count2 = fn2()
+    count1.add()
+    count1.add()
+    count2.add()
+    count2.reduce()
+
+    console.log(count1.value());
+    console.log(count2.value());
+
+  </script>
+</body>
+</html>
