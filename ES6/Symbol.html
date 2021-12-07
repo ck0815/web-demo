@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symbol</title>
+</head>
+<body>
+  <pre>
+    Symbol,表示独一无二的值，最大用法是用来定义对象的唯一属性名
+      原始数据类型 Number String Bollean null undefind Symbol 
+      symbol不能使用new命令，应为symol是原始数据类型，不是对象
+  </pre>
+  <script>
+    let sy = Symbol("KK");
+    console.log(sy);   // Symbol(KK)
+    console.log(typeof(sy));
+  </script>
+</body>
+</html>
