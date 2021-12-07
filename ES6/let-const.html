@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>let-const</title>
+</head>
+<body>
+  <pre>
+    ECMAScript 6.0 是javascipt的下一个版本标准，简称ES6
+
+    var 声明一个变量
+    let 声明一个变量，只在let命令所在的代码块内有效
+      1. var 是在全局生效，let只在代码块内有效
+      2. var 可以重复声明，let不可以重复声明
+      3. var 存在变量提升，let不存在变量提升
+      4. 暂时性死区，ES6规定在代码块内存在 let或者const 时代码块会对这些声明的变量 从块形成的开始就形成一个封闭的作用域，在声明之前使用会报错
+
+    const 声明一个常量，一旦声明不能改变
+      1. 同let一样，只在代码块内有效
+      2. 同let一样，不存在变量提升
+      3. 同let一样，不可以重复声明
+      4. 暂时性死区，ES6规定在代码块内存在 let或者const 时代码块会对这些声明的变量 从块形成的开始就形成一个封闭的作用域，在声明之前使用会报错
+
+    const 如何做到变量在声明初始化之后不允许改变的？
+      const保证的不是变量的值不变，而是保证 变量指向内存的地址 所保存的数据不允许改变，
+      简单类型和复合类型保存值得方式是不同的
+      简单类型（string，number，boolean）值就保存在变量指向的内存地址，
+      复合类型（object，array，function）变量地址指向的内存地址 是保存了指向实际数据的指针，const只能保证指针是固定的，至于指针指向的数据结构
+      变不变就无法控制了，所以const声明复杂类型对象要慎重
+
+  </pre>
+  <script>
+    // 1 , 2 , 3
+    console.log(a);
+    var a = 1
+    var a = 2
+    console.log(a);
+
+    // console.log(a1); err
+    let a1 = 'aa'
+    // let a1 = 'bb'  err
+    console.log(a1);
+
+    // 示例
+    for(var i=0;i<5;i++){
+      setTimeout(() => {
+        console.log(i);
+      })
+    }
+    // 5 5 5 5 5
+    // console.log(i);
+
+    for(let j=0;j<5;j++){
+      setTimeout(() => {
+        console.log(j);
+      })
+    }
+    // 0 1 2 3 4
+    // console.log(j); err
+
+    // console.log(b);
+    const b = '3.14'
+    console.log(b);
+
+    // 4
+    var c = 1
+    if(true){
+      console.log(c, 'cccc');
+      // let c = 2    err
+      // const c = 2  err
+    }
+
+    // 复杂类型
+    const cat = {}
+    // cat = 'kit' err
+    cat.name = 'kit'
+    console.log(cat, '....');
+  </script>
+</body>
+</html>
