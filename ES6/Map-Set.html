@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map-Set</title>
+</head>
+<body>
+  <pre>
+    Set对象允许你存储任何类型的值，无论是原始值或者是对象引用。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+    Set 本身是一个构造函数，用来生成Set 数据结构。Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
+
+    Set中的特殊值
+    Set 对象存储的值总是唯一的，所以需要判断两个值是否恒等。有几个特殊值需要特殊对待：
+    +0 与 -0 在存储判断唯一性的时候是恒等的，所以不重复
+    undefined 与 undefined 是恒等的，所以不重复
+    NaN 与 NaN 是不恒等的，但是在 Set 中认为NaN与NaN相等，所有只能存在一个，不重复。
+    size 获取Set数据结构的长度
+
+    1. add(value)：添加某个值，返回 Set 结构本身(可以链式调用)。
+    2. delete(value)：删除某个值，删除成功返回true，否则返回false。
+    3. has(value)：返回一个布尔值，表示该值是否为Set的成员。
+    4. clear()：清除所有成员，没有返回值。
+
+
+    Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。
+    Maps 和 Objects 的区别
+      一个 Object 的键只能是字符串或者 Symbols，但一个 Map 的键可以是任意值。
+      Map 中的键值是有序的（FIFO 原则），而添加到对象中的键则不是。
+      Map 的键值对个数可以从 size 属性获取，而 Object 的键值对个数只能手动计算。
+      Object 都有自己的原型，原型链上的键名有可能和你自己在对象上的设置的键名产生冲突。
+
+  </pre>
+  <script>
+    // set
+    function setDemo(){
+      // let list = new Set()
+      let list = new Set([1,2])
+      // 这里体现了值的唯一性
+      // list.add(1)
+      // list.add(1)    
+      // list.add(2)  // 1 2
+      // 这里体现了对象之间引用不同不恒等，即使值相同，Set 也能存储
+      var o = {a: 1, b: 2}
+      list.add(o)
+      list.add({a: 1, b: 2})
+      console.log(list, list.size)
+
+      // 类型转换
+      // array 转 set
+      let mySet = new Set([1,2,3,4,'a','b'])
+      // 用...操作符，将 Set 转 Array
+      let myArray = [...mySet]
+      console.log(mySet, myArray);
+
+      // string 转 set
+      let myset1 = new Set('abcde')
+      console.log(myset1);
+
+      // Set 对象作用
+      // 数组去重
+      let arr = [...new Set([1,2,3,4,4,4])]
+      console.log(arr);
+
+      // 并集 将两个数组合并，同时进行了去重
+      let a = [1,2,3]
+      let b = [3,4,5]
+      let arr1 = new Set([...a,...b])
+      console.log(arr1);
+
+      // 交集 取两个数组中同时存在的
+      let a2 = new Set([1, 2, 3]);
+      let b2 = new Set([4, 3, 2]);
+
+      let arr2 = new Set( [...a2].filter( x => b2.has(x) ) )
+      console.log(arr2);
+
+      // 差集 取两个数组中同时存在的以外的
+      let a3 = new Set([1,2,3])
+      let b3 = new Set([4,2,3])
+      let arr3 = new Set( [...a3].filter(x => !b3.has(x)) )
+      console.log(arr3);
+
+      let list1 = new Set([+0,-0,undefined,undefined,NaN,NaN])
+      console.log(list1);
+    }
+    // setDemo()
+
+    // Map
+    function mapDemo(){
+      // Map 中的 key
+      let map1 = new Map()
+      // key 是字符串
+      // let attr = 'a b'
+      // key 是对象
+      // let attr = {}
+      // key 是函数
+      // let attr = function () {}
+      // key 是 NaN
+      let attr = NaN
+
+      map1.set(attr, 'a b 对应的value')
+      console.log(map1);
+
+      // console.log(map1.get('a b'));
+      // undefined
+      // console.log(map1.get({})); 
+      // undefined
+      // console.log(map1.get(function () {})); 
+      // 虽然 NaN 和任何值甚至和自己都不相等(NaN !== NaN 返回true)，NaN作为Map的键来说是没有区别的。
+      console.log(map1.get(NaN));
+      console.log(map1.get(attr));
+
+      // Map 的迭代 对 Map 进行遍历，以下两个最高级。
+      let myMap2 = new Map();
+          myMap2.set(0, "zero");
+          myMap2.set(1, "one");
+      for(let [key, value] of myMap2){
+        console.log(key, value);
+      }
+
+      // 这个 entries 方法返回一个新的 Iterator 对象，它按插入顺序包含了 Map 对象中每个元素的 [key, value] 数组。 
+      for(let [key, value] of myMap2.entries()){
+        console.log(key, value);
+      }
+
+      // 这个 keys 方法返回一个新的 Iterator 对象， 它按插入顺序包含了 Map 对象中每个元素的键
+      for(let key of myMap2.keys()){
+        console.log(key);
+      }
+
+      // 这个 values 方法返回一个新的 Iterator 对象，它按插入顺序包含了 Map 对象中每个元素的值
+      for(let value of myMap2.values()){
+        console.log(value);
+      }
+
+      // forEach()
+      let myMap3 = new Map();
+          myMap3.set(0, "zero");
+          myMap3.set(1, "one");
+      myMap3.forEach((value, key) => {
+        console.log(key, value);
+      })
+
+      // Map 对象的操作
+
+      // Map 与 Array的转换
+      let kvArray = [[1,2],[3,4]]
+      // Map 构造函数可以将一个 二维 键值对数组转换成一个 Map 对象
+      let myMap4 = new Map(kvArray)
+      // 使用 Array.from 函数可以将一个 Map 对象转换成一个二维键值对数组
+      let outArray = Array.from(myMap4)
+      console.log(myMap4, outArray);
+
+      // Map 的克隆
+      let myMap5 = new Map([[1,2],[3,4]])
+      // Map 对象构造函数生成实例，迭代出新的对象。
+      let myMap6 = new Map(myMap5)
+      console.log(myMap5, myMap6, myMap5 === myMap6);
+
+      // Map 的合并
+      let myMap7 = new Map([[1,'1'],[2,'2']])
+      let myMap8 = new Map([[1,'11'],[3,'3']])
+      let myMap9 = new Map([...myMap7, ...myMap8])
+      console.log(myMap9);
+    }
+    mapDemo()
+  </script>
+</body>
+</html>
