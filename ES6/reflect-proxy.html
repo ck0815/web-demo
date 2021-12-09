@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reflect 与 Proxy</title>
+</head>
+<body>
+  <pre>
+    Proxy
+    Proxy 可以对 目标对象的读取，函数调用等操作进行拦截。让后进行操作处理，他不直接操作对象，而是像代理模式，通过 对象的代理对象 进行操作。
+    在进行操作时，可以添加一些需要的额外操作。
+    一个 Proxy 对象由两部分组成 ，target，handler。在通过Proxy构造函数生成 实例对象时，需要提供这两个参数。
+    target 目标对象
+    handler （get, set）是一个对象，声明代理了target的制定行为
+      get（target, key） 用于 目标对象的读取操作
+        target 目标对象
+        propKey 属性
+      set （target, propKey, value, receeiver）用于 目标对象的赋值操作
+        target 目标对象
+        propKey 属性
+        value 设置的值
+        receeiver 表示原始操作行为所在的对象 Proxy 实例本身。一般是 Proxy 实例本身。
+      apply（target, ctx, args） 用于拦截函数的调用、 call 和 reply 操作。 
+        target 表示目标对象
+        ctx 表示目标对象上下文
+        args 表示目标对象的参数数组。
+      has(target, propKey) 用于拦截 HasProperty 操作，即在判断 target 对象是否存在 propKey 属性时，会被这个方法拦截。
+      此方法不判断一个属性是对象自身的属性，还是继承的属性。
+        target 目标对象
+        propKey 属性
+        
+    通过构造函数新建的实例其实是对目标对象进行了浅拷贝，因此目标对象与代理对象会相护影响
+    
+  </pre>
+  <script>
+    // Proxy
+    function Demo1(){
+      let target = {
+        name: 'kk',
+        age: 18,
+        color: 'ren'
+      }
+      let handler = {
+        // 获取触发
+        get: function(target, propKey){
+          console.log('geting: ', propKey);
+          return target[propKey] || 'error'
+        },
+        // 修改触发
+        set: function(target, propKey, value){
+          console.log('seting: ', propKey, value);
+          target[propKey] = value
+        }
+      }
+      let proxy = new Proxy(target, handler)
+      console.log(proxy.name);
+      proxy.name = 'ckk'
+      console.log(proxy.name);
+      console.log(proxy, target, 1111111);
+
+      
+      // target 可以为空对象
+      let target1 = {}
+      // handler1 对象也可以为空，相当于不设置拦截操作，直接访问目标对象
+      let handler1 = {}
+      let proxy1 = new Proxy(target1, handler1)
+      console.log(proxy1.aaa);
+      proxy1.aaa = 1
+      console.log(proxy1.aaa , '-----------------------------------');
+
+      // get() 方法可以继承。
+      let proxy2 = new Proxy({a: 1}, {
+        get: function(target, propKey){
+          // 私有属性读取保护
+          if(propKey[0] === '_'){
+            throw new Error(propKey + '私有化尝试无效.')
+          }
+          console.log('geting: ', propKey)
+          return target[propKey]
+        }
+      })
+      console.log(proxy2.a);
+      let obj = Object.create(proxy2)
+      console.log(obj.name);
+
+      
+      let handler2 = {
+        set: function(target, propKey, value, receeiver){
+          if(propKey === 'age'){
+            // 判断赋值 数字 并且小于160
+            if(!Number.isInteger(value) || value > 160){
+              throw new Error(`${propKey} 只能是数字类型并且小于160`)
+            }
+          }
+          console.log(receeiver, 'receeiver.....');
+          target[propKey] = value
+        }
+      }
+      let proxy3 = new Proxy({}, handler2)
+      // proxy3.age = '' err
+      // proxy3.age = 161 err
+      proxy3.age = 100
+      console.log(proxy3.age);
+
+      let handler3 = {
+        set: function(target, propKey, value, receeiver){
+          target[propKey] = receeiver
+          console.log(receeiver, 'receeiver.....');
+        }
+      }
+      let proxy4 = new Proxy({}, handler3)
+      proxy4.name = 100
+      console.log(proxy4.name === proxy4);
+
+      // apply(target, ctx, args) 用于拦 截函数的调用
+      function sub (a, b){
+        return a + b
+      }
+      let handler4 = {
+        apply: function(target, ctx, args){
+          console.log(target, ctx, args, 'receeiver.....');
+          return Reflect.apply(...arguments)
+        }
+      }
+      let proxy5 = new Proxy(sub, handler4)
+      console.log(proxy5(1,2));
+
+      // has
+      let handler5 = {
+        has: function(target, propKey){
+          console.log("handle has");
+          return propKey in target;
+        }
+      }
+      let proxy6 = new Proxy({name : 'ckk'}, handler5)
+      // console.log('names' in proxy6);
+      console.log('name' in proxy6);
+
+
+    }
+    Demo1()
+
+    // Reflect
+    function Demo2(){
+    
+    }
+    Demo2()
+  </script>
+</body>
+</html>
