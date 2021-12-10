@@ -19,13 +19,31 @@
       对象的拓展运算符
       拓展运算符（...）用于取出 参数对象 所有可遍历属性 然后 拷贝到当前对象。
       可用于合并两个对象
+      自定义的属性在拓展运算符后面，则拓展运算符对象内部同名的属性将被覆盖掉。
+      自定义的属性在拓展运算度前面，则变成设置新对象默认属性值。
+      拓展运算符后面是空对象，没有任何效果也不会报错。
+      拓展运算符后面是null或者undefined，没有效果也不会报错。
+
+      对象的新方法
+        Object.assign(target, source_1, ···) 用于将源对象的所有可枚举属性复制到目标对象中。
+          第一个参数是目标对象，后面的参数是源对象
+          如果目标对象和源对象有同名属性，或者多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+          如果该函数只有一个参数，当参数为对象时，直接返回该对象；当参数不是对象时，会先将参数转为对象然后返回。
+          因为 null 和 undefined 不能转化为对象，所以会报错
+          当参数不止一个时，null 和 undefined 不放第一个，即不为目标对象时，会跳过 null 和 undefined ，不报错
+          assign 的属性拷贝是浅拷贝
+          同名属性替换
+
+        Object.is(value1, value2) 用来比较两个值是否严格相等，与（===）基本类似。
+        +0不等于-0
+        NaN等于本身
   </pre>
   <script>
     let name = 'ckk'
     let age = 18
     let obj = {
       name,
-      age, 
+      age,
       eat(){
         console.log('吃法餐');
       },
@@ -50,6 +68,49 @@
     let obj5 = {...obj3, ...obj4}
     console.log(obj5);
 
+    let obj6 = {...obj3, name: 'xxx'}
+    console.log(obj6);
+
+    let obj7 = {name: 'xxx', ...obj3}
+    console.log(obj7);
+
+    let obj8 = {name: 'xxx', ...{}, ...null, ...undefined}
+    console.log(obj8);
+
+    // 对象的新方法
+    let a1 = {name: 'xxx'}
+    let a2 = {age: 18, name: 'xccc'}
+    let a3 = Object.assign({}, a1, a2)
+    console.log(a3);
+
+    console.log(Object.assign(3));
+    // console.log(Object.assign(null));
+    // console.log(Object.assign(undefined));
+    console.log(Object.assign({} , null, undefined));
+    let sourceObj = { a: { b: 1}};
+    let targetObj = {c: 3};
+    Object.assign(targetObj, sourceObj);
+    targetObj.a.b = 2;
+    console.log(targetObj, sourceObj)
+
+    // 数组的处理
+    // 会将数组处理成对象，所以先将 [2,3] 转为 {0:2,1:3} ，然后再进行属性复制，所以源对象的 0 号属性覆盖了目标对象的 0。
+    console.log(
+      Object.assign([2,3], [5])
+    );
+
+
+    console.log( Object.is('a', 'a') );
+    console.log( Object.is(1, 1) );
+    console.log( Object.is([1],[1]) );
+    console.log( Object.is({q: 1},{q: 1}) );
+    // 与（===）的区别
+    //一是+0不等于-0
+    console.log(Object.is(+0,-0));
+    console.log(+0 === -0);
+    // 二是NaN等于本身
+    console.log(Object.is(NaN, NaN));
+    console.log(NaN === NaN);
 
   </script>
 </body>
