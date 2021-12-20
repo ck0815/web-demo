@@ -29,6 +29,8 @@
           ES6 之前，JavaScript 的 this 对象一直很令人头大，回调函数，
           经常看到 var self = this 这样的代码，为了将外部 this 传递到回调函数中，那么有了箭头函数，就不需要这样做了，直接使用 this 就行。
   </pre>
+
+  <button id="userClick">toggle</button>
   <script>
     function fn1(name, age=20) {
         console.log(name + ':' + age);
@@ -92,7 +94,52 @@
     // console.log(newFn);
 
     // 适合使用的场景
-    
+    // ES6 之前，JavaScript 的 this 对象一直很令人头大，回调函数，
+    // 经常看到 var self = this 这样的代码，为了将外部 this 传递到回调函数中，那么有了箭头函数，就不需要这样做了，直接使用 this 就行。
+    var person = {
+      age: 18,
+      sayHollow: function () {
+        setTimeout(function () {
+          console.log(this.age);  // 20
+          console.log(this);
+        })
+        setTimeout(() => {
+          console.log(this.age);  // 18
+          console.log(this);
+        })
+      }
+    }
+    var age = 20
+    person.sayHollow()
+
+    // 不适合使用的场景
+    var person1 = {
+      ages: 18,
+      // 此时 this 指向的是全局对象
+      // sayHollow: () => {
+      //   console.log(this.ages)
+      // }
+
+      // 此时的 this 指向 Person1 对象
+      sayHollow: function (params) {
+        console.log(this.ages)
+      }
+    }
+    var ages = 20;
+    person1.sayHollow()
+
+
+    // 动态this
+    // button 的监听函数是箭头函数，所以监听函数里面的 this 指向的是定义的时候外层的 this 对象，即 Window，导致无法操作到被点击的按钮对象。
+    let button = document.getElementById('userClick')
+    button.addEventListener('click',function () {
+      console.log(this,button, 11111);
+      this.classList.toggle('on')
+    })
+    // button.addEventListener('click', () => {
+    //   console.log(this,button, 11111);
+    //   this.classList.toggle('on')
+    // })
 
   </script>
 </body>
