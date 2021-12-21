@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>class</title>
+</head>
+<body>
+  <pre>
+    在ES6中，class (类)作为对象的模板被引入，可以通过 class 关键字定义类。
+    class 的本质是 function。
+    它可以看作一个语法糖，让对象原型的写法更加清晰、更像面向对象编程的语法。
+    不可重复声明。
+
+    类定义不会被提升，这意味着，必须在访问前对类进行定义，否则就会报错。
+    类中方法不需要 function 关键字。
+    方法间不能加分号。
+
+    类的主体
+    属性
+      prototype
+      ES6 中，prototype 仍旧存在，虽然可以直接自类中定义方法，但是其实方法还是定义在 prototype 上的。 覆盖方法 / 初始化时添加方法
+
+    静态属性
+      静态属性：class 本身的属性，即直接定义在类内部的属性（ Class.propname ），不需要实例化。 
+      ES6 中规定，Class 内部只有静态方法，没有静态属性。
+      name 属性
+
+    方法
+      constructor 方法
+      constructor 方法是类的默认方法，创建类的实例化对象时被调用。
+    静态方法
+      static 
+    原型方法
+    实例方法
+
+    类的实例化
+    new
+    class 的实例化必须通过 new 关键字。
+
+    实例化对象
+      共享原型对象
+
+  </pre>
+
+  <script>
+    // 类定义
+    // 类表达式可以 为匿名或命名。
+    let Example1 = class {
+      constructor(a){
+        this.a = a
+      }
+    }
+
+    // 命名类
+    let Example2 = class Example2 {
+        constructor(a){
+          this.a = a
+        }
+    }
+
+    // 类声明
+    class Example3 {
+      constructor(a){
+        this.a = a
+      }
+    }
+
+    // 不可重复声明。
+    class Example4{
+      // 新提案
+      static a = 1
+    }
+    Example4.b = 2
+    Example4.prototype.c = 3
+
+
+    // class Example4{}
+    
+    // 类定义不会被提升，这意味着，必须在访问前对类进行定义，否则就会报错。
+    // 类中方法不需要 function 关键字。
+    // 方法间不能加分号。
+    let a = new Example3()
+    // console.log(a);
+
+    // prototype
+    // Example4.prototype = {
+    //   say(){
+    //     console.log(1111);
+    //   }
+    // }
+
+    // 添加方法
+    Object.assign(Example4.prototype, {
+      eat(){
+        console.log(22222);
+      }
+    })
+
+    // Example4.say()
+    // Example4.prototype.eat()
+    console.log(Example4.a);
+    console.log(Example4.b);
+    console.log(Example4.c);
+    console.log(Example4.prototype);
+
+    // name 属性
+    class Example5 {
+      a = 1
+      constructor(){
+        console.log(this.a);
+        console.log('我是 Example5 constructor');
+      }
+    }
+    new Example5()
+    console.log(Example5.name);
+
+    let Example6 = class exam {
+      constructor(){
+          // 默认返回实例对象 this
+      }
+    }
+    console.log(Example6.name);
+
+    let Example7 = class {
+      constructor () {
+        // 指定返回对象
+        return new Example6()
+      }
+    }
+
+    // 默认返回实例对象 this
+    console.log(new Example6() instanceof Example6);
+    // 指定返回对象
+    console.log(new Example7() instanceof Example7);
+
+    // 静态方法
+    class Example8 {
+      // 静态方法
+      static sum (a, b) {
+        console.log(a + b);
+      }
+
+      // 原型方法
+      // sum(a, b) {
+      //     console.log(a + b);
+      // }
+
+      // 实例方法
+      // constructor(){
+      //   this.sum = (a, b) => {
+      //     console.log(a + b);
+      //   }
+      // }
+    }
+    // Example8.sum(1, 2)
+
+    // let Example9 = new Example8()
+    // Example9.sum(1, 2)
+
+    console.log(Example8.prototype);
+
+
+    // 实例化对象
+    // 共享原型对象
+    class Example10 {
+      constructor(a, b){
+        this.a = a
+        this.b = b
+      }
+      sum(){
+        return this.a + this.b
+      }
+    }
+
+    let Example11 = new Example10(1,2)
+    let Example12 = new Example10(2,3)
+    console.log(Example11.__proto__  === Example12.__proto__ );
+    console.log(Example11.sum(), Example12.sum());
+
+    
+  </script>
+</body>
+</html>
