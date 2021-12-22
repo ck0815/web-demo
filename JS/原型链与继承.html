@@ -11,11 +11,69 @@
     原型链与继承
   </div>
   <script>
-    function Person() {
+    // 数据类型
+    // null undefied
+    // boolean number string symbol
+    // object array function
 
-    }
+    // let nul = null
+    // console.log(nul.constructor); // Cannot read properties of null
+    // console.log(nul.prototype);  // Cannot read properties of null
 
-    // Person.prototype.name = 'ckk'
+    // let und = undefined
+    // console.log(und.constructor); // Cannot read properties of null
+    // console.log(und.prototype); // Cannot read properties of null
+
+    // let bol = true
+    // console.log(bol.constructor); // ƒ Boolean() { [native code] }
+    // console.log(bol.prototype);   // undefined
+
+    // let num = NaN
+    // console.log(num.constructor); //ƒ Number() { [native code] }
+    // console.log(num.prototype);   // undefined
+
+    // let str = 'ckk'
+    // console.log(str.constructor); // ƒ String()
+    // console.log(str.prototype); // undefined
+
+    // let sym = Symbol('ck')
+    // console.log(sym.constructor); // ƒ Symbol()
+    // console.log(sym.prototype); // undefined
+
+    // let obj = {}
+    // console.log(obj.constructor); // ƒ Object()
+    // console.log(obj.__proto__.constructor); // ƒ Object()
+    // console.log(obj.constructor === obj.__proto__.constructor);
+    // console.log(obj.prototype); // undefined
+
+    // let obj1 = new Object()
+    // console.log(obj1.constructor === Object.prototype.constructor);
+    // console.log(obj, obj1, Object);
+
+    // __proto__： 当访问一个对象的属性时，如果属性不直接在对象上，则会去其__proto__ 所指的对象中去找，
+    //             如果不存在会一直找下去，直到__proto__的值为null，才不会去找了，也就是找到原型链的末端了。
+    // prototype:  共享属性和方法的
+
+
+    // let arr = []
+    // console.log(arr.constructor); // ƒ Array()
+    // console.log(arr.prototype); // undefined
+
+    // let fun = function () { }
+    // console.log(fun.constructor); // ƒ Function()
+    // console.log(fun.prototype); // {constructor: ƒ}
+
+    // 基本数据类型 除了 null undefined 都有constructor
+    // 只有函数有prototype
+    // 函数包含原型 prototype 和 原型链 __proto__
+    // prototype 指向一个包含constructor 的对象，prototype 是一个对象，具有constructor属性 也是一个对象 值为对象本身
+    // console.log(Function.prototype.constructor === Function);
+
+    // end
+    console.log('--------------------------------------------------------');
+
+    function Person() { }
+    Person.prototype.name = 'ckk'
     Person.prototype.age = 18
     Person.prototype.eat = function(){
       console.log(this.name, 'eat.....');
@@ -24,22 +82,25 @@
     let ck1 = new Person()
     console.log(ck1, '由Person构造而来。。。')
     console.log(ck1.constructor, '构造器。。。')
-    // ck1.name = 'ck'
-    console.log(ck1.name, '')
+    // 访问属性不需要new
+    console.log(ck1.name, ck1.age)
+    // 访问方法 需要 实例化对象
+    // Person.eat() //err
+    ck1.eat()
 
     // 原型链的查找规则
     // 沿着原型链 _proto_ 一层一层的往上查找，知道找到位置
     // null => Obrject,Array 基类 => {} []
-    ck1.a = '基本属性'
-    let item
-    for(item in ck1){
-      console.log(item, 111);
-      // 
-      if(ck1.hasOwnProperty(item)){
-        console.log(item, 222);
-      }
-    } 
 
+    // ck1.a = '基本属性'
+    // let item
+    // for(item in ck1){
+    //   console.log(item, 111);
+    //   if(ck1.hasOwnProperty(item)){
+    //     console.log(item, 222);
+    //   }
+    // } 
+    
   </script>
 </body>
 </html>
