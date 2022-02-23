@@ -10,34 +10,77 @@
   <pre>
     HTML面试
 
-    img的title 和 alt有啥区别
-      title是鼠标放在标签上显示的内容
-      alt是图片加载失败时显示的替代文字
-      alt是必要属性，title不是必要的
+    1. img的title 和 alt有啥区别
+        title是鼠标放在标签上显示的内容
+        alt是图片加载失败时显示的替代文字
+        alt是必要属性，title不是必要的
     
-    html5新增加的属性和删除的属性
-      新增
-        标签 nav header footer aslide video audio section canvas ...
-        localStrorage sessionStrorage
-        contenteditabel 属性 任何节点 添加 就可以变得可编辑
-        Geolocation
-      删除 标签
-        font big center u tt ...
+    2. html5新增加的属性和删除的属性
+        新增
+          标签 nav header footer aslide video audio section canvas ...
+          localStrorage sessionStrorage
+          contenteditabel 属性 任何节点 添加 就可以变得可编辑
+          Geolocation 地理定位
+        删除 标签
+          font big center u tt ...
     
-    web标准和w3c标准
-      标签闭合
-      标签小写
-      嵌套正确
-      外部链接js css
-      提倡html css js 相分离
+    3. web标准和w3c标准
+        标签闭合
+        标签小写
+        嵌套正确
+        外部链接 js css
+        提倡html css js 相分离
     
-    xhtml 和 html的区别
+    4. xhtml 和 html的区别
+        标签名必须小写
+        xhtml 元素必须正确的嵌套
+        xhtml 元素必须关闭
+        xhtml 文档必须有根元素
     
-    Doctype的作用
-      <!Doctype> 声明在文档的最前面，告知浏览器用什么模式来渲染文档
+    5. Doctype的作用
+        <!Doctype> 声明在文档的最前面，告知浏览器用什么模式来渲染文档
     
-    严格模式与混杂模式如何区分，有什么意义
-      严格模式
+    6. 严格模式与混杂模式如何区分，有什么意义
+        严格模式
+          排版和js运作模式 以浏览器支持的最高标准运行该
+        混杂模式
+          页面以宽松向后兼容的模式显示，模拟老式浏览器的行为以防止站点无法工作
+        DOCTYPE 不存在或者格式不正确会导致文档以混炸模式呈现
+
+    7. 行内元素
+        span a b img input select textarea strong em button label
+    8. 块级元素
+        div p h1-h6 ul ol li dl dt dd
+    9. 空元素
+        没有内容的html元素 br meta hr link input img
+
+    10. 行内元素和块级元素的区别
+        行内元素
+          不能设置宽高
+          margin 只能设置左右，padding 上下左右都行
+          不会自动换行
+        块级元素
+          能设置宽高
+          mairgin padding 上下左右都行
+          独占一行
+
+    11. html的全局属性
+        class 
+        id 
+        style 
+        title
+        data-* 自定义属性
+        lang 内容语言
+        dir 规定元素中内容的文本方向（ltr：从左到右， rtl：从右到左）
+        contenteditabel html新增属性，设置true后可编辑元素
+        hidden 隐藏元素
+
+    12. Canvas 和 SVG
+        Canvas h5新增元素 使用xml描述2d图形的语言
+        SVG 可伸缩矢量图，放大缩小不会失真
+      
+    13. h5为什么只需要写 <!DOCTYPE html>
+        <DOCTYPE html> 是文档声明，声明了文档类型是html5，告诉浏览器和其他开发者，该文档使用的是html5标准
   </pre>
 </body>
 </html>
