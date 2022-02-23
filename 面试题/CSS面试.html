@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS面试</title>
+  <style>
+    /* .container {
+        display:flex;
+    }
+    .mid{
+        flex:1;
+        width:100%;
+        height: 100px;
+        background: royalblue;
+    }
+    .left{
+        width:100px;
+        height: 100px;
+        background: rosybrown;
+    }
+    .right{
+        width:100px;
+        height: 100px;
+        background: cadetblue;
+    } */
+
+      .container {
+          display: flex;
+      }
+      .mid{
+          flex:1;
+          height: 100px;
+          background: royalblue;
+      }
+      .left{
+          flex:1;
+          height: 100px;
+          background: rosybrown;
+      }
+      .right{
+          flex:1;
+          height: 100px;
+          background: cadetblue;
+      }
+
+      .box {
+          height: 300px;
+          width: 300px;
+          display: flex;
+          background: red;
+          align-items: center;
+          justify-content: center;
+        }
+  </style>
+</head>
+<body>
+  <pre>
+    CSS面试
+
+    1. 实现一个div在不同分辨率下的水平垂直居中
+        .box{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          width: 100px;
+          height: 100px
+        }
+        ...    
+
+    2. 清楚浮动的几种方式
+        div style="clear: both;"
+
+        伪元素
+        .box::after {
+          content: ' ';
+          display: block;
+          clear: both;
+        }
+
+        父元素设置 overflow: hidden
+    
+    3. css sprites 精灵图
+        将一些小图标放在一张图上
+        精灵图的优点
+          减少图片的总大小
+          减少下载图片资源请求，减小建立连接的消耗
+        使用
+        .icon {
+          background-image: url(css/img/sidebar.png);
+          background-repeat: no-repeat;
+          background-position: 20px  20px;
+       }
+    
+    4. box-sizing常用的属性有哪些？分别有什么作用？
+        content-box 不包含border+padding
+        border-box 包含border+padding
+        inherit 继承父元素 box-sizing
+    
+    5. CSS样式覆盖规则
+        ！important > 行内样式 > id选择器 > class选择器/伪类选择器 > 标签选择器/伪元素选择器
+    
+    6. margin 重合问题，相邻的两个元素 垂直方向的margin会重合，会取比较大的margin的值
+        使用padding代替margin
+        设置float
+        设置overflow
+
+    7. 对 meta标签有啥理解
+        meta标签是html文档头部的一个标签，对用户不可见，是给搜索引擎看的，便于seo。
+
+    8. dispaly: none visibility hidden
+        none 设置后 该元素在dom中消失不占用空间
+        visibility hidden 设置后 元素在dom中依然存在，只是不可见，会影响到页面布局
+    
+    9. 重绘和回流
+        重绘 不会影响页面布局操作，比如修改颜色
+        回流 布局的改变导致需要重新构建，就是回流
+        回流必将引起重绘，重绘不一定引起回流
+
+    10. 对语义化的理解
+          根据内容的结构选择合适的标签
+          有利于SEO，让爬虫可以抓到更多有效信息
+          更具有可读性，标语团队开发维护
+          样式丢失或者去掉演示后页面任然可以呈现出清晰的结构
+          方便其他设备渲染网页
+    
+    11. 为什么要初始化css样式
+          应为浏览器的兼容问题，不同浏览器对标签的默认值是不同的，如果不初始化css,会导致不同浏览器页面中的显示差异
+    
+    12. 居中为什么用 transform ? 为什么不用 margin-left/margin-top
+          transform 属于合成属性，不会引起整个页面的回流重绘，节省性能消耗，但是占用内存会大一些
+          margin-left/margin-top 属于布局属性，会引起页面的 layout回流和repaint重绘
+
+    13. 什么是BFC 块级格式化上下文
+          块级元素参与的布局，BFC布局将自己与外部隔开，内部外部互不影响
+          
+          触发BFC
+            body 根元素
+            浮动元素 flaot 不为 none以外的值
+            绝对定位元素
+            display 为 inline-block,table-cells,flex
+            overflow 除了visible 以外的值 （hidden,auto,scoll）
+
+          BFC的作用
+            同一个BFC下边距会发生重叠
+              如果想要避免外边距发生重叠，可以放在不同的BFC容器中
+            BFC可以包含浮动的元素
+              浮动的元素会脱离文档流，父级使用overflow:hidden;触发BFC可以撑起父级使其包含浮动元素
+            BFC可以阻止元素被浮动元素覆盖
+              同级的两个元素其中一个浮动会覆盖没有浮动的元素，要想不被覆盖，没有浮动的元素可以设置 overflow:hidden
+      
+    14. css3新特性
+          flex 
+          @midia 
+          rgba 
+          border-radius 
+          background: linear-gradient(red,green,blue)
+          box-shadow:3px 3px 3px rgba(0,64,128,0.3)
+          transform
+          动画 @keyframes anim-1 {50% {border-radius: 50%;}} animation: anim-1 1s;
+          ...
+
+    15. 标准盒子模型，IE盒子模型
+          标准盒子大小 = content + border + margin + padding  
+            盒子的宽等于content的宽
+            盒子的高等于content的高
+          IE盒子大小 = (content + border + padding)  + margin
+            盒子的宽等于 content的宽 + 左右border + 左右padding
+            盒子的高等于 content的高 + 上下border + 左右padding
+    
+    16. flex 布局
+          1) 左右定宽，中间自适应
+          <div class="container">
+              <div class="left"></div>
+              <div class="mid"></div>
+              <div class="right"></div>
+          </div>
+
+          .container {
+              display:flex;
+          }
+          .mid{
+              flex:1;
+              width:100%;
+              height: 100px;
+              background: royalblue;
+          }
+          .left{
+              width:100px;
+              height: 100px;
+              background: rosybrown;
+          }
+          .right{
+              width:100px;
+              height: 100px;
+              background: cadetblue;
+          }
+
+        2) 等分布局
+          .container {
+              display: flex;
+          }
+          .mid{
+              flex:1;
+              height: 100px;
+              background: royalblue;
+          }
+          .left{
+              flex:1;
+              height: 100px;
+              background: rosybrown;
+          }
+          .right{
+              flex:1;
+              height: 100px;
+              background: cadetblue;
+          }
+        3) 一个小盒子在一个大盒子里居中
+        <div class="box">
+            <span class="mid"></span>
+        </div>
+
+        .box {
+            height: 300px;
+            width: 300px;
+            display: flex;
+            background: red;
+            align-items: center;
+            justify-content: center;
+        }
+        ...
+
+    17. CSS创建一个三角形
+        设置3边透明，显示一边
+        .box{
+          width:0px;
+          height:0px;
+          border: 50px solid;
+          border-color:transparent transparent transparent #ef4848;
+        }
+  </pre>
+</body>
+</html>
