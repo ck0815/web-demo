@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VUE面试</title>
+</head>
+<body>
+  <pre>
+    VUE面试
+
+      1. 对spa单页应用的理解，都有什么优点和缺点
+          SPA 是 single page application 的英文缩写，是在页面初始化时加载相应的html css 和 js 。
+          在页面加载完成后，不会因为用户的操作进行页面的重新加载或者跳转，而是例用路由机制实现html的切换交互等
+          避免了页面重新加载。
+
+          优点
+            用户体验好，加载速度快，页面内容改变不需要重新加载页面，避免了不必要的跳转和重新渲染。
+            基于上面一点，spa相对服务器压力小
+            前后端分离，架构清晰，前端负责交互逻辑，后天负责处理数据
+
+          缺点
+            第一次加载耗时多，为了实现页面的功能及效果，需要在加载页面时 将 js css 统一加载，部分页面按需加载。
+            前进后退路由管理，由于单页是在一个页面显示所有内容，所以不能使用浏览器前进后退功能，所有页面需要自己建立堆栈管理。
+            不利于 SEO 由于所有内容都在一个页面中，所以在seo上天然弱势
+
+      2. v-show 和 v-if 
+          v-if 显示隐藏是将dom删除或者添加
+          v-shwo 显示隐藏是将dom元素设置css display: none，dom元素还在
+          v-if 有更高的切换消耗，合适在条件较少改变时。v-show 有更高的初始加载消耗，合适条件切换频繁的场景
+
+      3. vue的单项数据流
+          数据从父组件传递给子组件，只能单向绑定。这样防止了子组件修改父组件的状态，
+          每次父组件数据更新时，子组件中 prop 都会刷新为最新的值。
+          子组件不能直接修改从父组件传递过来的数据，如果修改会报错。如果想修改时，只可以通过 $emit 发布一个事件，父组件收到后，由父组件更改。
+
+      4. computed 和 watch 的区别和应用场景
+          computed 是计算属性，依赖其他属性，并且值是有缓存的，只有依赖的属性发生改变，才会重新计算。
+          watch 是监听器，可以监听一个数据，然后执行相应的操作。
+
+          当多个属性影响一个属性时合适用 computed
+          当一个属性变化后影响多个属性合适用 watch
+
+      5. vue生命周期
+          vue生命周期是从开始创建，初始化数据，编译模板，挂载Dom，渲染，更新，渲染，卸载等一系列过程。
+
+          beforeCreate 组件实例被创建之初，组件属性生效之前
+          created  组件实例完成创建，属性也绑定，但没有生成dom，$el 不可用。
+          beforeMount 在挂载前
+          mounted 挂载后
+          beforeUpdate 组件数据更新前
+          update 组件数据更新后
+          activited  keep-alive 专属 组件激活后调用
+          deactivited  keep-alive 专属 组件销毁时调用
+          beforeDestory 组件销毁前调用
+          destory 组件销毁后调用
+
+      6. vue父组件和子组件生命周期钩子函数执行顺序
+          
+
+  </pre>
+</body>
+</html>

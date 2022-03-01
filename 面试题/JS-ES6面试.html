@@ -87,7 +87,100 @@
 
     14. js事件冒泡和事件代理
           当一个元素接受到事件时，会把接收的事件传给自己的父级，一直到window，过程就是冒泡，如果想要在其中一层阻止，使用 evet.stopPropagation
-          
+          但是事件绑定占用事件，浏览器会最终每个事件，占用更多内存，而且并不是所有事件都会使用到，所以需要事件委托解决这个问题。
+          事件委托是自己不绑定事件给最外层的元素绑定事件，在触发后判断事件源，做不同处理。
+
+    15. new关键字做了什么
+          var obj = new fun()
+          1 var obj = {} 创建了一个空对象
+          2 obj._proto_ = fun.prototype  将obj的_proto_ 指向构造函数的原型对象, 通俗理解就是新对象隐式原型__proto__链接到构造函数显式原型prototype上。
+          3 fun.call(obj) 构造函数this指向替换成 obj
+
+          实现一个new
+            function _new(Con, ...args){
+                <!-- 创建一个空的对象 -->
+                let obj = {}
+                <!-- 将空对象的原型prototype指向构造函数的原型 -->
+                obj.__proto__ = Con.prototype
+                <!-- 改变构造函数的上下文（this）,并将剩余的参数传入 -->
+                let result = Con.apply(obj,args)
+                <!-- 在构造函数有返回值的情况进行判断 -->
+                return result instanceof Object ? result : obj
+            }
+            function Person(name) {
+                this.name = name
+                return 1 // return undefined/NaN/'string'/null
+            }
+
+            let me = new Person('Jayee')
+            let me2 = _new(Person,'Jayee') //顺便测试一下我们自己实现的_new
+
+            console.log(me) // { name:'Jayee' }
+            console.log(me2) // { name:'Jayee' }
+
+            function Person(name) {
+                this.name = name
+                return {
+                    age: 21
+                }
+            }
+            let me3 = new Person('Jayee')
+            let me4 = _new (Person,'Jayee') //顺便测试一下我们自己实现的_new
+            console.log(me3) // { age:21 }
+            console.log(me4) // { age:21 }
+
+            在new的时候，会对构造函数的返回值做一些判断：
+            如果返回值是基础数据类型，则忽略返回值，返回创建的obj；
+            如果返回值是引用数据类型，则使用return 的返回
+
+    16. bind、call、apply的区别
+          不同点
+            fn.bind(obj) 返回一个函数
+            fn.call(obj, params1, params2) 返回一个处理结果
+            fn.apply(obj, [params1, params2]) 返回一个处理结果
+          相同点
+            改变函数内部的this指向
+
+            var g = 3;        // 全局变量 window的属性
+            let obj1 = {
+                g:30
+            }
+            let obj2 = {
+                id: Symbol("ids"),
+                g:300,
+                c:function() {
+                    return this.g;
+                },
+                d:function(parms1,parms2) {
+                  console.log(parms1+parms2);
+                }
+            }
+
+            /*常态下调用obj2的c方法*/
+            console.log(obj2.c(),"obj2.c()");  // 300
+            
+            //调用obj2的c方法在链式调用bind方法
+            console.log(obj2.c.bind(window),"obj2.c.bind(window)")  // function() { return this.g }
+            console.log(obj2.c.bind(obj1),"obj2.c.bind(obj1)")  // function() { return this.g }
+            
+            //调用obj2的c方法在链式调用call方法
+            console.log(obj2.c.call(obj1),"obj2.c.call(obj1)")  // 30
+            
+            //调用obj2的c方法在链式调用apply方法
+            console.log(obj2.c.apply(obj1),"obj2.c.apply(obj1)")  //30
+
+            <!-- 传参 -->
+            //传参数给bind
+            obj2.d.bind(obj1)(1,1); // 2
+
+            //传参数给call
+            obj2.d.call(obj1,2,2) // 4
+
+            //传参数给apply
+            obj2.d.apply(obj1,[3,3]) // 6
+
+    17. 介绍暂时性死区
+          在代码中，使用let const 声明变量之前，该变量都是不可用的，这在语法上叫做暂时性死区
 
   </pre>
 </body>
