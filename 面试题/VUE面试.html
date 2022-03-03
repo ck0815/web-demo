@@ -57,7 +57,63 @@
           destory 组件销毁后调用
 
       6. vue父组件和子组件生命周期钩子函数执行顺序
+          加载渲染过程
+            父 beforeCreate > 父 created > 父 beforeMount > 子 beforeCreate > 子 created > 子 beforeMount > 子 mounted > 父 mounted
+          子组件更新过程
+            父 beforeUpdate > 子 beforeUpdate > 子 update > 父 update
+          父更新过程
+            父 beforeUpdate > 父 update
+          销毁过程
+            父 beforeDestory > 子 beforeDestory > 子 destory > 父 destory
+
+      7. 在哪个生命周期内调用异步请求
+          在 beforeMount mounted created 中都可以，因为在这3个钩子函数中 data已经创建，可以将服务端数据进行赋值。
+          推荐在 created 因为能更快获取到数据，减少页面loading时间
+          ssr 不支持 beforeMount mounted ，放在 created 中更好保持一致性
+
+      8. keep-alive 的理解
+          vue的内置组件，一般结合路由和动态组件一起使用，用于缓存组件
+          提供 include 和 exclude 属性 都支持正则表达式，include 表示只有名称匹配的组件会被缓存
+          exclude表示任何名称匹配的组件都不会被缓存，exclude 比 include优先级高
+          对应两个钩子函数 activited 和 deactivited，当组件被激活，触发 activited，组件移除时 触发 deactivited
+
+      9. 组件中data为什么是一个函数
+          data为一个对象会照成数据共享，在多次使用该组件时，改变一个组件时会影响所有组件的值。
+          如果是通过函数的形式返回的对象，相当于每次使用组件时都创建了一个新的对象，每个对象的地址指向都是不一样的。
+          就可以实现数据独立
+
+      10. v-model 的原理
+            v-model 是一个vue的语法糖，他分两种情况一种是原生dom，
+            比如一个输入框使用v-model 等价于 绑定了value属性 和 input事件，当input事件触发后将值赋值给value。
+            另一种是组件上绑定v-model 等价于给组件绑定了value 和 input事件，触发后赋值。
+
+            // 标准写法
+            <input v-model="name">
+            // 等价于
+            <input :value="name" @input="name = $event.target.value">
+
+            // 在组件上面时
+            <div :value="name" @input="name = $event"></div>
+
+      11. 响应式数据原理/数据双向绑定
+            vue 2.x 
+              通过 Object.defineProperty()中的get 和 set 方法实现，data中声明的所有属性都被添加了访问器属性。
+              当读取data中的数据时自动调用get方法，当修改data中数据时，自动调用set方法，
+              检测到数据变化，会通知观察者（wacher），观察者自动触发重新渲染当前组件，生成新的虚拟dom树，
+              vue会遍历并对比新的dom树和旧的dom树每个节点的区别，并记录下来，最后把所有记录的不同点，局部修改到真实的dom树上
+
+            vue 3.x 
+              改用 Proxy 替代 Object.defineProrerty() ,因为 proxy 可以直接监听对象和数组的变化。
+              并有多达13种拦截方法，并且作为新标准，将受到浏览器厂商的持续优化。
+
+      12. 虚拟 DOM
+            是 js 对象模拟 保存当前视图内所有dom节点对象的 基本描述 和 节点关系结构 的树结构。
+            用js对象，描述每一个节点，及其父子关系，形成的虚拟dom对象树结构。
+
+      13. vue 中无法监听数组的变动及对象的新增和删除
           
+
+
 
   </pre>
 </body>
