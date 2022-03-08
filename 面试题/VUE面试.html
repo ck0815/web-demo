@@ -111,10 +111,44 @@
             用js对象，描述每一个节点，及其父子关系，形成的虚拟dom对象树结构。
 
       13. vue 中无法监听数组的变动及对象的新增和删除
-          
+            数组不能监听通过下标改变和改变长度的数据，
+            数组可以监听直接赋值的和通过响应式数组方法改变的数据
+
+            响应式数组方法 push pop shift unshift splice ...
+            非相应数组方法 slice filter concat
+            可以通过 this.$set(arr,index,value) 添加
+
+            vue可以监听对象.属性修改对象的值，不能监听通过对象.属性添加对象的值
+            可以通过 this.$set(obj, attr, value) 添加
+
+      14· 什么是 diff 算法
+            是虚拟dom的核心，目的是找得到最小的变化，根据最小的变化更新dom树结构
+            默认的diff算法会遍历老的dom树，然后便利新的dom树，然后发现改变重新排序，遍历次数太多，不能接受。
+            vue中的diff算法是经过优化的，会比较同一层级，不会跨层级比较，然后比较标签名，在比较key值是否相同，不同时更新
+
+      15. vue 组件通讯有几种方式
+          1 props this.$emit() 父子通讯
+          2 ref parent/children 父子通讯
+          3 bus $emit/$on 父子 兄弟 隔代
+          4 vuex 父子 兄弟 隔代
+          5 attrs/listeners provide/inject 隔代
+
+      16. 什么是vuex vue状态管理模式
+            状态 === 数据
+            vuex是公共数据管理工具，可以把一些共享的数据保存在vuex中方便任何组件获取和修改公共数据
+            state  用于存放数据状态
+            getter  获取state中数据的
+            action   用于提交 mutation ，不直接改变state，可以包含一部操作
+            mutation  用于修改state中数据，只能是同步的
+            module  模块化状态管理
+
+      17. vue-router有几种模式
+          hash 使用路由器hash值作为路由，带有#号
+          history 使用h5 Api实现的
+          abstract 支持所有js运行环境，如果没有发现浏览器Api则会进入这个模式。
 
 
-
+      18. 
   </pre>
 </body>
 </html>
