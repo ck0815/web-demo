@@ -143,11 +143,61 @@
             module  模块化状态管理
 
       17. vue-router有几种模式
-          hash 使用路由器hash值作为路由，带有#号
-          history 使用h5 Api实现的
+          hash 支持所有浏览器，带有#号，通过 hashchange 事件监听hash值的变化，执行js代码实现页面的改变
+          history 依赖 h5的 history Api实现，由pushState()记录操作历史，popState()监听状态的改变
           abstract 支持所有js运行环境，如果没有发现浏览器Api则会进入这个模式。
 
-      18. vue 的优点和缺点
+      18. vue-router的生命周期
+          全局守卫 路由实例直接执行的钩子函数
+            beforeEach() 路由跳转前触发，主要作用是用于登陆验证，主要是在路由跳转前告知，避免跳转后在通知就晚了。
+
+            beforeResolve() 和 beforeEach 类似也是在跳转前触发，区别是在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，
+                            即在 beforeEach 和 组件内 beforeRouteEnter 之后， afterEach 之前调用。
+            afterEach() 路由跳转完成后触发，在beforeEach 和 beforeResolve之后，在befforeEnter(组件守卫)之前
+                        这个函数不接受next函数也不会改变导航
+
+          路由守卫 设置在路由对象上的的钩子函数
+            beforeEnter() 和 beforeEach 一样，如果两个都配置 beforeEnter 会在 beforeEach后执行
+
+          组件守卫 设置在组件内执行的钩子函数
+            beforeRouteEnter() 
+              该钩子在 全局守卫 beforeEach 和 独享守卫 beforeEnter 之后，全局 beforeResolve 和 全局 afterEach 之前调用，
+              要注意的是该守卫内访问不到组件的实例，也就是this为undefined。因为它在组件生命周期 beforeCreate 阶段触发，
+              此时的新组件还没有被创建。在这个钩子函数中，可以通过传一个回调给 next 来访问组件实例。在导航被确认的时候执行回调，
+              并且把组件实例作为回调方法的参数。
+            beforeRouteUpdate()
+              在当前路由改变时，并且该组件被复用时调用，可以通过this访问实例。
+            beforeRouteLeave()
+              导航离开该组件的对应路由时调用，可以访问组件实例this。这个离开守卫通常用来禁止用户在还未保存修改前突然离开。
+              该导航可以通过next( false )来取消。
+
+        19. this.$nextTick()
+              是下次DOM循环更新结束之后执行的回调函数，在改变数据之后调用nextTick 获取修改之后的dom。
+              主要思路就是采用微任务优先的方式调用异步方法去执行 nextTick 包装的方法。
+
+        20. vue.mixin 的使用场景和原理
+              vue.mixin 的作用是抽离公共的业务逻辑，原理类似“对象的继承”，当组件初始化时会调用 mergeOptions 方法进行合并，
+              采用策略模式针对不同的属性进行合并，如果混入的数据和本身组件中的数据冲突，会采用“就近原则”以组件的数据为准。
+              mixin中有很多缺陷“命名冲突问题”，“依赖问题”，“数据来源问题”，这里强调一下mixin的数据是不会被共享的。
+
+        21. 组件中写name有哪些好处
+              1 可以通过名字找到对应的组件（ 递归组件 ）
+              2 可以通过name属性实现缓存功能 (keep-alive)
+              3 可以通过 name 来识别组件（跨级组件通信时非常重要）
+
+        22. 生命周期钩子是如何实现的
+            vue的生命周期钩子就是回调函数，在创建组件实例时会调用对应的方法
+
+        23. vue 性能优化
+              v-if 和 v-show 分场景使用
+              computed 和 watch 分场景使用
+              v-for 加 key 避免同时使用v-if
+              图片，数据，路由，懒加载
+              插件按需引用
+              防抖节流
+              ...
+        
+        24. 
 
   </pre>
 </body>
