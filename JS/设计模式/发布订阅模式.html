@@ -36,7 +36,9 @@
     // 创建观察者
     class ObSrerver {
       constructor() {
-        this.msg = {}
+        this.msg = {
+          // a: [fun, ]
+        }
       }
 
       // 订阅 向队列中添加内容
@@ -78,12 +80,15 @@
 
     function msg1() { console.log('msg1') }
     function msg2() { console.log('msg2') }
+
     function msg3() { console.log('msg3') }
     function msg4() { console.log('msg4') }
 
     let p1 = new ObSrerver()
+
     p1.on('a', msg1)
     p1.on('a', msg2)
+
     p1.on('b', msg2)
     p1.on('b', msg3)
     p1.on('b', msg4)
@@ -92,10 +97,10 @@
     // 取消订阅的所有事件
     // p1.off('a')
     // 取消订阅的每一个事件
-    p1.off('a', msg1)
+    // p1.off('a', msg1)
 
     // 触发a行为 把a所有事件触发
-    p1.emit('b')
+    p1.emit('a')
 
     console.log(p1);
   </script>

@@ -21,6 +21,7 @@
         被观察者
         观察者
         当被观察者触发条件的时候，观察者触发技能
+
       需要两个构造函数实现
         1.创建被观察者
           属性，自己的状态
@@ -41,8 +42,11 @@
         this.fn = fn
       }
     }
+
     let ls = new ObSrerver('老师',state => { console.log(`因为 ${state} ,把你爸找来`)})
+
     let zr = new ObSrerver('主任',state => { console.log(`因为 ${state} ,你班主任是谁`)})
+
     let xz = new ObSrerver('校长',state => { console.log(`因为 ${state} ,骂你班主任`)})
 
 
@@ -81,14 +85,17 @@
     }
 
     let xiaoming = new Subject('学习')
+
     xiaoming.addObServer(ls)
     xiaoming.addObServer(xz)
     xiaoming.addObServer(zr)
     // xiaoming.delObServer(xz)
+    xiaoming.setState('打架')
 
     let xiahong = new Subject('学习')
     xiahong.addObServer(ls)
     xiahong.addObServer(xz)
+
     console.log(xiaoming,xiahong);
   </script>
 </body>

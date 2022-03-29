@@ -12,22 +12,22 @@
 
       1. 对spa单页应用的理解，都有什么优点和缺点
           SPA 是 single page application 的英文缩写，是在页面初始化时加载相应的html css 和 js 。
-          在页面加载完成后，不会因为用户的操作进行页面的重新加载或者跳转，而是例用路由机制实现html的切换交互等
+          在页面加载完成后，不会因为用户的操作进行页面的重新加载或者跳转，而是利用路由机制实现html的切换交互等
           避免了页面重新加载。
 
           优点
             用户体验好，加载速度快，页面内容改变不需要重新加载页面，避免了不必要的跳转和重新渲染。
             基于上面一点，spa相对服务器压力小
-            前后端分离，架构清晰，前端负责交互逻辑，后天负责处理数据
+            前后端分离，架构清晰，前端负责交互逻辑，后端负责处理数据
 
           缺点
             第一次加载耗时多，为了实现页面的功能及效果，需要在加载页面时 将 js css 统一加载，部分页面按需加载。
             前进后退路由管理，由于单页是在一个页面显示所有内容，所以不能使用浏览器前进后退功能，所有页面需要自己建立堆栈管理。
             不利于 SEO 由于所有内容都在一个页面中，所以在seo上天然弱势
 
-      2. v-show 和 v-if 
+      2. v-show 和 v-if
           v-if 显示隐藏是将dom删除或者添加
-          v-shwo 显示隐藏是将dom元素设置css display: none，dom元素还在
+          v-show 显示隐藏是将dom元素设置css display: none，dom元素还在
           v-if 有更高的切换消耗，合适在条件较少改变时。v-show 有更高的初始加载消耗，合适条件切换频繁的场景
 
       3. vue的单项数据流
@@ -76,7 +76,7 @@
           提供 include 和 exclude 属性 都支持正则表达式，include 表示只有名称匹配的组件会被缓存
           exclude表示任何名称匹配的组件都不会被缓存，exclude 比 include优先级高
           对应两个钩子函数 activited 和 deactivited，当组件被激活，触发 activited，组件移除时 触发 deactivited
-
+          
       9. 组件中data为什么是一个函数
           data为一个对象会照成数据共享，在多次使用该组件时，改变一个组件时会影响所有组件的值。
           如果是通过函数的形式返回的对象，相当于每次使用组件时都创建了一个新的对象，每个对象的地址指向都是不一样的。
@@ -91,15 +91,14 @@
             <input v-model="name">
             // 等价于
             <input :value="name" @input="name = $event.target.value">
-
             // 在组件上面时
             <div :value="name" @input="name = $event"></div>
 
       11. 响应式数据原理/数据双向绑定
-            vue 2.x 
+            vue 2.x
               通过 Object.defineProperty()中的get 和 set 方法实现，data中声明的所有属性都被添加了访问器属性。
               当读取data中的数据时自动调用get方法，当修改data中数据时，自动调用set方法，
-              检测到数据变化，会通知观察者（wacher），观察者自动触发重新渲染当前组件，生成新的虚拟dom树，
+              检测到数据变化，会通知观察者（wacher），观察者自动触发 重新渲染当前组件，生成新的虚拟dom树，
               vue会遍历并对比新的dom树和旧的dom树每个节点的区别，并记录下来，最后把所有记录的不同点，局部修改到真实的dom树上
 
             vue 3.x 
@@ -135,14 +134,14 @@
 
       16. 什么是vuex vue状态管理模式
             状态 === 数据
-            vuex是公共数据管理工具，可以把一些共享的数据保存在vuex中方便任何组件获取和修改公共数据
+            vuex 是公共数据管理工具，可以把一些共享的数据保存在vuex中方便任何组件获取和修改公共数据
             state  用于存放数据状态
             getter  获取state中数据的
             action   用于提交 mutation ，不直接改变state，可以包含一部操作
             mutation  用于修改state中数据，只能是同步的
             module  模块化状态管理
-
-      17. vue-router有几种模式
+ 
+      17. vue-router 有几种模式
           hash 支持所有浏览器，带有#号，通过 hashchange 事件监听hash值的变化，执行js代码实现页面的改变
           history 依赖 h5的 history Api实现，由pushState()记录操作历史，popState()监听状态的改变
           abstract 支持所有js运行环境，如果没有发现浏览器Api则会进入这个模式。
@@ -151,7 +150,7 @@
           全局守卫 路由实例直接执行的钩子函数
             beforeEach() 路由跳转前触发，主要作用是用于登陆验证，主要是在路由跳转前告知，避免跳转后在通知就晚了。
 
-            beforeResolve() 和 beforeEach 类似也是在跳转前触发，区别是在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，
+            beforeResolve() 和 beforeEach 类似也是在跳转前发，区别是在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，
                             即在 beforeEach 和 组件内 beforeRouteEnter 之后， afterEach 之前调用。
             afterEach() 路由跳转完成后触发，在beforeEach 和 beforeResolve之后，在befforeEnter(组件守卫)之前
                         这个函数不接受next函数也不会改变导航
@@ -160,7 +159,7 @@
             beforeEnter() 和 beforeEach 一样，如果两个都配置 beforeEnter 会在 beforeEach后执行
 
           组件守卫 设置在组件内执行的钩子函数
-            beforeRouteEnter() 
+            beforeRouteEnter()
               该钩子在 全局守卫 beforeEach 和 独享守卫 beforeEnter 之后，全局 beforeResolve 和 全局 afterEach 之前调用，
               要注意的是该守卫内访问不到组件的实例，也就是this为undefined。因为它在组件生命周期 beforeCreate 阶段触发，
               此时的新组件还没有被创建。在这个钩子函数中，可以通过传一个回调给 next 来访问组件实例。在导航被确认的时候执行回调，
@@ -197,7 +196,46 @@
               防抖节流
               ...
         
-        24. 
+        24. vuex 命名空间
+            vuex 的命名空间是为了避免 module 中模块定义的方法名冲突的，只需要在模块中添加 namespaced: true.
+            使用getter/action/mution访问时 都需要 模块名/方法名 调用，避免了事件命名冲突，当 module 内部还有嵌套的 module 时，
+            如果没有定义命名空间则会继承父级的命名空间，如果定义了，访问时需要 父级模块名/子模块名/方法名调用
+            <!-- getters['account/isAdmin'] dispatch('account/login') commit('account/login') -->
+
+        25. vue中key的作用
+            是给每一个节点设置的唯一标识，在 diff 过程中，可以快速的对比，判断是不是同一节点。
+            可以高效的更新虚拟dom
+
+        26. 对mvvm的理解
+            m model 数据层
+            v view 视图层
+            vm view-model 视图模型 是连接 数据层和视图层的桥梁， 当数据变化时viewModel能够监听到数据变化。
+            自动更新视图，当视图变化时，也可以监听到，并通知数据层改动。
+
+        27. new Vue()初始化过程
+            new Vue的时候调用会调用_init方法
+            _init方法方法中
+            <!-- 合并相关配置, 初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等 -->
+
+            定义 $set、$get 、$delete、$watch 等方法
+            定义 $on、$off、$emit、$off等事件
+            定义 _update、$forceUpdate、$destroy生命周期
+            
+            调用$mount进行页面的挂载
+            挂载的时候主要是通过mountComponent方法
+            定义updateComponent更新函数
+            执行render生成虚拟DOM
+            _update将虚拟DOM生成真实DOM结构，并且渲染到页面中
+
+        28. template编译过程？
+            AST(abstract syntax tree 抽象语法树), 是源代码的抽象语法结构的树状表现形式
+
+            解析器(parse) - 将 模板字符串 转换成 element ASTs
+            优化器(optimize) - 对 AST 进行静态节点标记，主要用来做虚拟DOM的渲染优化
+            代码生成器(generate) - 使用 element ASTs 生成 render 函数代码字符串
+
+            首先通过 parse 将 template 解析成AST, 其次 optimize 对解析出来的AST进行标记，
+            最后 generate 将优化后的 AST 转换成可执行的代码
 
   </pre>
 </body>
