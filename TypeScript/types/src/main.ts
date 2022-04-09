@@ -1,7 +1,7 @@
-import { cat } from './cat' 
+// import { cat } from './cat' 
 
 // 基础类型
-function add(n1 : number,n2:number){
+function add(n1:number, n2:number){
   return n1 + n2
 }
 console.log(add(1,4));
@@ -26,6 +26,7 @@ let arr3 = [1,2,3]
 let arr4 = [1,'a']
 // 存放任何类型
 let arr5:any[] = [1,'a',true]
+
 console.log('数组',arr)
 console.log('数组',arr2)
 console.log('数组',arr3)
@@ -37,6 +38,9 @@ let ar:[number,string] = [1,'a']
 ar[0] = 2
 // ar.push(3)
 console.log('元组',ar);
+
+// & 表示 同时
+let aa: {name: string } & {age: number}
 
 // 联合-union
 let union: string | number | boolean
@@ -80,7 +84,7 @@ enum Color {
 let color = Color.blue
 console.log('枚举',color);
 
-// any 任意类型
+// any 任意类型 =》 可以赋值给其他变量
 let random:any = 1
 // random = 'a'
 // random = true
@@ -89,7 +93,12 @@ let random:any = 1
 // '''
 console.log('any 任意类型',random);
 
-// unknown 未知类型
+// as string 断言类型
+let s:string
+let e
+s = e as string
+
+// unknown 未知类型 =》 不能直接赋值给其他类型
 let randoms:unknown = 1
 randoms = 'abc'
 if(typeof randoms === 'function'){
@@ -100,7 +109,8 @@ if(typeof randoms === 'string'){
 }
 console.log('unknown 未知类型',randoms);
 
-// void 
+// void 空值 函数返回值 类型
+// void 表示函数没有返回值
 function voidprint():void {
   console.log('voidvoid');
 }
@@ -113,7 +123,7 @@ function undefinedprint():undefined {
 }
 console.log('void',undefinedprint());
 
-// never 
+// never 永远不会返回结果
 // function neverprint(msg:string,stu:number):never {
 //   throw{
 //     msg,
@@ -146,6 +156,10 @@ let log = (msg:string,code:number = 2) => {
 log('abc')
 
 // Object（对象）
+// 语法 {属性名？: 类型} ?表示可选属性，可以不存在
+// let c: {name: string, [propName: string]: any }
+// propName 表示属性名类型，any表示任意；类型
+
 // let person:{
 //   name: string,
 //   age: number
@@ -237,12 +251,12 @@ inFn({x:1, y:2})
 
 // access modifier 访问修饰符 
 // module 模块
-let obj1 = new cat()
+// let obj1 = new cat()
 // public  公有属性 外部可访问
 // obj1.x = 2
 // private  内部属性 外部不可访问
 // obj1.y = 2
-console.log('module 模块',obj1)
+// console.log('module 模块',obj1)
 
 
 // Generics 泛型

@@ -1,0 +1,45 @@
+{   // ts编译器的配置文件，可以根据配置的信息编译ts文件
+    // 表示哪些文件可以被编译
+    "include": [
+        // ** 表示任意目录
+        // * 表示任意文件
+        "./src/**/*"
+    ],
+
+    // 表示哪些文件不被编译
+    // 默认值 /node_modules ...
+    // "exclude": [],
+
+    // 定义被继承的配置文件
+    // "extends": "",
+
+    // 指定编译文件的列表，只有需要编译的文件才会用到
+    // "files": [],
+
+    // 编译器选项
+    "compilerOptions": {
+        // 指定ts编译的js版本
+        // es3 es5 es6 es6 es2015-es2020 esnext(最新版本)
+        "target": "es3",
+        
+        // 指定模块化规范 none commonjs amd system es2015 ...
+        // "module": "es2015",
+
+        // 指定项目中的库 "ES5", "ES6", "ES2015", "ES2015.Collection", "ES2015.Core", "ES2015.Generator", "ES2015.Iterable", "ES2015.Promise", "ES2015.Proxy", "ES2015.Reflect", "ES2015.Symbol.WellKnown", "ES2015.Symbol", "ES2016", "ES2016.Array.Include", "ES2017", "ES2017.Intl", "ES2017.Object", "ES2017.SharedMemory", "ES2017.String", "ES2017.TypedArrays", "ES2018", "ES2018.AsyncGenerator", "ES2018.AsyncIterable", "ES2018.Intl", "ES2018.Promise", "ES2018.Regexp", "ES2019", "ES2019.Array", "ES2019.Object", "ES2019.String", "ES2019.Symbol", "ES2020", "ES2020.BigInt", "ES2020.Promise", "ES2020.String", "ES2020.Symbol.WellKnown", "ESNext", "ESNext.Array", "ESNext.AsyncIterable", "ESNext.BigInt", "ESNext.Intl", "ESNext.Promise", "ESNext.String", "ESNext.Symbol", "DOM", "DOM.Iterable", "ScriptHost", "WebWorker", "WebWorker.ImportScripts", "Webworker.Iterable", "ES7", "ES2021", "ES2020.SharedMemory", "ES2020.Intl", "ES2021.Promise", "ES2021.String", "ES2021.WeakRef", "ESNext.WeakRef", "es2021.intl"
+        // "lib": [ "ES5" ],
+
+        // 指定编译后存放目录
+        "outDir": "./dist",
+        
+        // 指定输出文件 把全局作用域文件合并到一个文件
+        // "outFile": "./dist/app.js"
+
+        // 是否对js进行编译 true: 编译，默认false：不编译
+        // "allowJs": false,
+
+        // 是否检查js是否符合语法规范，默认false
+        "checkJs": false,
+
+        // 
+    }
+}
